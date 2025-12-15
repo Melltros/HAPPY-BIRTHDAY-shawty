@@ -45,7 +45,7 @@
         .confetti:nth-child(5n+2) { background-color: #6ee6a9; }
         .confetti:nth-child(5n+3) { background-color: #fff5e6; }
         .confetti:nth-child(5n+4) { background-color: #fce4ec; width: 6px; height: 6px; }
-        .confetti:nth-child(5n)   { background-color: #ffc0cb; width: 10px; height: 10px; }
+        .confetti:nth-child(5n)   { background-color: #ffc0cb; width: 10px; height: 10px; }
         
         @keyframes fall {
             0% { transform: translateY(-100px) rotate(0deg) scale(1); opacity: 1; }
@@ -75,7 +75,7 @@
         .confetti:nth-child(20) { left: 2%; animation-delay: 0.05s; animation-duration: 2.5s; }
 
 
-        /* --- 3. Main Container and Card Styling (Unchanged) --- */
+        /* --- 3. Main Container and Card Styling --- */
         .container {
             width: 95%;
             max-width: 450px;
@@ -100,7 +100,7 @@
             transform: scale(1);
         }
 
-        /* --- 4. Typography, Buttons, and Images (Unchanged) --- */
+        /* --- 4. Typography, Buttons, and Images --- */
         h1, h2 { color: #ff69b4; font-weight: 800; }
         .subtitle { font-size: 1.1em; color: #666; margin-top: 5px; }
         .love-letter-text { font-family: 'Georgia', serif; font-size: 1.05em; line-height: 1.6; text-align: left; padding: 15px; }
@@ -115,11 +115,12 @@
 
         .decoration-img { max-width: 80px; height: auto; border-radius: 15px; }
         .cat-image { float: right; margin-left: 10px; }
-        .envelope-image { width: 150px; margin: 20px auto; display: block; }
+        .envelope-image { width: 150px; margin: 20px auto; display: block; **cursor: pointer;** transition: transform 0.2s, box-shadow 0.2s; }
+        .envelope-image:hover { transform: translateY(-5px) scale(1.05); box-shadow: 0 10px 20px rgba(255, 105, 180, 0.3); }
         .album-art { width: 100%; height: auto; border-radius: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); transition: transform 0.2s; }
         .album-art:hover { transform: scale(1.03); }
 
-        /* --- 5. Cake Cutting Styles (Interactive Drag) (Unchanged) --- */
+        /* --- 5. Cake Cutting Styles (Interactive Drag) --- */
         .cake-container {
             margin: 20px auto;
             position: relative;
@@ -216,440 +217,439 @@
     </style>
 </head>
 <body>
-    
+    
     <div id="confetti-holder" class="confetti-container" style="display: none;">
-        <div class="confetti"></div><div class="confetti"></div><div class="confetti"></div><div class="confetti"></div><div class="confetti"></div>
-        <div class="confetti"></div><div class="confetti"></div><div class="confetti"></div><div class="confetti"></div><div class="confetti"></div>
-        <div class="confetti"></div><div class="confetti"></div><div class="confetti"></div><div class="confetti"></div><div class="confetti"></div>
-        <div class="confetti"></div><div class="confetti"></div><div class="confetti"></div><div class="confetti"></div><div class="confetti"></div>
-    </div>
+        <div class="confetti"></div><div class="confetti"></div><div class="confetti"></div><div class="confetti"></div><div class="confetti"></div>
+        <div class="confetti"></div><div class="confetti"></div><div class="confetti"></div><div class="confetti"></div><div class="confetti"></div>
+        <div class="confetti"></div><div class="confetti"></div><div class="confetti"></div><div class="confetti"></div><div class="confetti"></div>
+        <div class="confetti"></div><div class="confetti"></div><div class="confetti"></div><div class="confetti"></div><div class="confetti"></div>
+    </div>
 
     <div id="kiss-explosion-container" class="kiss-explosion-container"></div>
-    
-    <audio id="bg-music" loop>
-        <source src="" type="audio/mpeg">
-        Your browser does not support the audio element.
-    </audio>
+    
+    <audio id="bg-music" loop>
+        <source src="" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
 
-    <div class="container">
+    <div class="container">
 
-        <div id="greeting-screen" class="card">
-            <img class="decoration-img cat-image" src="images/kitty_greeting.png" alt="Cute Kitty"> 
-            <h1 style="font-size: 2.5em;">Happy Birthday, Beautiful! 🎂✨</h1>
-            <p>Today is all about celebrating the most amazing person in my world. I've created something magical just for you on your special day...</p>
-            <p style="color: #ff69b4; font-weight: 600;">Ready for your birthday surprise?</p>
-            <button class="pink-button" onclick="goToScreen('letter-envelope-screen')">Let's Gooo</button>
-        </div>
+        <div id="greeting-screen" class="card">
+            <img class="decoration-img cat-image" src="images/kitty_greeting.png" alt="Cute Kitty"> 
+            <h1 style="font-size: 2.5em;">Happy Birthday, Beautiful! 🎂✨</h1>
+            <p>Today is all about celebrating the most amazing person in my world. I've created something magical just for you on your special day...</p>
+            <p style="color: #ff69b4; font-weight: 600;">Ready for your birthday surprise?</p>
+            <button class="pink-button" onclick="goToScreen('letter-envelope-screen')">Let's Gooo</button>
+        </div>
 
-        <div id="letter-envelope-screen" class="card">
-            <h2 style="font-size: 1.8em;">A Birthday Love Letter <span style="font-size: 1.2em;">💌</span></h2>
-            <p class="subtitle">From my heart to the birthday queen</p>
-            
-            <img class="envelope-image" src="images/envelope.png" alt="Pink Envelope">
-            
-            <p style="margin-top: 30px;">Click to open your birthday surprise</p>
-            <button class="pink-button" onclick="goToScreen('letter-content-screen')">Birthday Special Delivery 🎁</button>
-        </div>
+        <div id="letter-envelope-screen" class="card">
+            <h2 style="font-size: 1.8em;">A Birthday Love Letter <span style="font-size: 1.2em;">💌</span></h2>
+            <p class="subtitle">From my heart to the birthday queen</p>
+            
+            <p style="margin-bottom: 30px;">Click the envelope to open your birthday surprise</p>
+            
+                        <img id="envelope-img" class="envelope-image" src="images/envelope.png" alt="Pink Envelope" onclick="goToScreen('letter-content-screen')">
+            
+                                </div>
 
-        <div id="letter-content-screen" class="card">
-            <img class="decoration-img cat-image" src="images/kitty_party.png" alt="Kitty with party hat"> 
-            <h2 style="color: #ff69b4; text-align: left; margin-bottom: 20px;">To My Birthday Princess</h2>
-            
-            <div class="love-letter-text">
-                <p style="color: #ff69b4; font-style: italic;">My dearest anuradha,</p>
-                <p>Today marks another year of your incredible existence, and I couldn't be more grateful to celebrate it with you. You bring so much joy, laughter, and love into this world - and into my life. You deserve all the magic, all the dreams, and all the love this world has to offer.</p>
-                <p style="text-align: right; color: #ff69b4; margin-top: 20px; font-weight: 600;">Forever yours 💕</p>
-            </div>
-            
-            <button class="pink-button" onclick="goToScreen('playlist-screen')">Continue It ✨</button>
-        </div>
+        <div id="letter-content-screen" class="card">
+            <img class="decoration-img cat-image" src="images/kitty_party.png" alt="Kitty with party hat"> 
+            <h2 style="color: #ff69b4; text-align: left; margin-bottom: 20px;">To My Birthday Princess</h2>
+            
+            <div class="love-letter-text">
+                <p style="color: #ff69b4; font-style: italic;">My dearest anuradha,</p>
+                <p>Today marks another year of your incredible existence, and I couldn't be more grateful to celebrate it with you. You bring so much joy, laughter, and love into this world - and into my life. You deserve all the magic, all the dreams, and all the love this world has to offer.</p>
+                <p style="text-align: right; color: #ff69b4; margin-top: 20px; font-weight: 600;">Forever yours 💕</p>
+            </div>
+            
+            <button class="pink-button" onclick="goToScreen('playlist-screen')">Continue It ✨</button>
+        </div>
 
-        <div id="playlist-screen" class="card">
-            <h2 style="font-size: 1.8em;">Birthday Vibes Playlist <span style="font-size: 1.2em;">🎵</span></h2>
-            <p class="subtitle">Tap any album cover to start the music!</p>
+        <div id="playlist-screen" class="card">
+            <h2 style="font-size: 1.8em;">Birthday Vibes Playlist <span style="font-size: 1.2em;">🎵</span></h2>
+            <p class="subtitle">Tap any album cover to start the music!</p>
 
-            <div class="carousel-wrapper">
-                <button class="carousel-arrow" onclick="changeSlide(-1)">&#10094;</button>
-                <div class="carousel">
-                    <div class="carousel-item" onclick="playSong('audio/song1.mp3')">
-                        <img class="album-art" src="images/album_art_1.png" alt="Dil Cheeze Tujhe Dedi"> 
-                        <div class="song-title">Raabta</div>
-                        <div class="song-subtitle">Because today is all about YOU, queen! 👑</div>
-                    </div>
-                    <div class="carousel-item" onclick="playSong('audio/song2.mp3')">
-                        <img class="album-art" src="images/album_art_2.png" alt="Dil Ka Jo Haal Hai"> 
-                        <div class="song-title">Dil Ka Jo Haal Hai</div>
-                        <div class="song-subtitle">Here's to making this year unforgettable ✨</div>
-                    </div>
-                    <div class="carousel-item" onclick="playSong('audio/song3.mp3')">
-                        <img class="album-art" src="images/album_art_3.png" alt="If the world was ending..."> 
-                        <div class="song-title">If the world was ending...</div>
-                        <div class="song-subtitle">Every beat celebrates your beautiful heart ❤️</div>
-                    </div>
-                </div>
-                <button class="carousel-arrow" onclick="changeSlide(1)">&#10095;</button>
-            </div>
-            
-            <button class="pink-button" onclick="goToScreen('cake-screen')">Continue to Birthday Surprises ✨</button>
-        </div>
+            <div class="carousel-wrapper">
+                <button class="carousel-arrow" onclick="changeSlide(-1)">&#10094;</button>
+                <div class="carousel">
+                    <div class="carousel-item" onclick="playSong('audio/song1.mp3')">
+                        <img class="album-art" src="images/album_art_1.png" alt="Raabta album art"> 
+                        <div class="song-title">Raabta</div>
+                        <div class="song-subtitle">Because today is all about YOU, queen! 👑</div>
+                    </div>
+                    <div class="carousel-item" onclick="playSong('audio/song2.mp3')">
+                        <img class="album-art" src="images/album_art_2.png" alt="Dil Ka Jo Haal Hai album art"> 
+                        <div class="song-title">Dil Ka Jo Haal Hai</div>
+                        <div class="song-subtitle">Here's to making this year unforgettable ✨</div>
+                    </div>
+                    <div class="carousel-item" onclick="playSong('audio/song3.mp3')">
+                        <img class="album-art" src="images/album_art_3.png" alt="Tum Ho Toh album art"> 
+                        <div class="song-title">Tum Ho Toh</div>
+                        <div class="song-subtitle">Every beat celebrates your beautiful heart ❤️</div>
+                    </div>
+                </div>
+                <button class="carousel-arrow" onclick="changeSlide(1)">&#10095;</button>
+            </div>
+            
+            <button class="pink-button" onclick="goToScreen('cake-screen')">Continue to Birthday Surprises ✨</button>
+        </div>
 
-        <div id="cake-screen" class="card">
-            <h2 style="font-size: 1.8em;">It's Cake Time! <span style="font-size: 1.2em;">🍰</span></h2>
-            <p class="subtitle">Make your birthday wish come true!</p>
+        <div id="cake-screen" class="card">
+            <h2 style="font-size: 1.8em;">It's Cake Time! <span style="font-size: 1.2em;">🍰</span></h2>
+            <p class="subtitle">Make your birthday wish come true!</p>
 
-            <h3 style="color: #333;">Cut your birthday cake, birthday girl!</h3>
-            <p style="font-size: 0.9em; margin-bottom: 30px;">**Drag your finger or mouse across the cake to cut it with a sparkly line!**</p>
+            <h3 style="color: #333;">Cut your birthday cake, birthday girl!</h3>
+            <p style="font-size: 0.9em; margin-bottom: 30px;">**Drag your finger or mouse across the cake to cut it with a sparkly line!**</p>
 
-            <div id="cake-container" class="cake-container">
-                <img id="cake-uncut" class="cake-img" src="images/cake_uncut.png" alt="Uncut Birthday Cake">
-                <img id="cake-cut" class="cake-img" src="images/cake_cut.png" alt="Cut Birthday Cake">
-                
-                <div id="drag-line"></div>
-                
-                <div id="cut-line"></div>
-            </div>
+            <div id="cake-container" class="cake-container">
+                <img id="cake-uncut" class="cake-img" src="images/cake_uncut.png" alt="Uncut Birthday Cake">
+                <img id="cake-cut" class="cake-img" src="images/cake_cut.png" alt="Cut Birthday Cake">
+                
+                <div id="drag-line"></div>
+                
+                <div id="cut-line"></div>
+            </div>
 
-            <p id="cut-message" style="display: none;">Perfect Cut! 🎉 May this year bring you everything your heart desires! ✨</p>
-            
-            <button id="cake-continue-btn" class="pink-button" onclick="goToScreen('wish-make-screen')" style="display: none;">Continue to Wish! ✨</button>
-        </div>
+            <p id="cut-message" style="display: none;">Perfect Cut! 🎉 May this year bring you everything your heart desires! ✨</p>
+            
+            <button id="cake-continue-btn" class="pink-button" onclick="goToScreen('wish-make-screen')" style="display: none;">Continue to Wish! ✨</button>
+        </div>
 
-        <div id="wish-make-screen" class="card">
-            <img class="decoration-img" style="width: 150px; margin-top: 10px;" src="images/wish_making.png" alt="Hello Kitty making a wish"> 
-            <h2 style="font-size: 2em;">Time to Make a Wish! ✨</h2>
-            <p class="subtitle">Close your eyes and make your birthday wish! ☀️</p>
-            <p style="margin-top: 20px;">Think of something wonderful for your new year!</p>
-            
-            <button class="pink-button" onclick="goToScreen('wishes-reveal-screen')">I've Made My Wish! 🤞</button>
-        </div>
+        <div id="wish-make-screen" class="card">
+            <img class="decoration-img" style="width: 150px; margin-top: 10px;" src="images/wish_making.png" alt="Hello Kitty making a wish"> 
+            <h2 style="font-size: 2em;">Time to Make a Wish! ✨</h2>
+            <p class="subtitle">Close your eyes and make your birthday wish! ☀️</p>
+            <p style="margin-top: 20px;">Think of something wonderful for your new year!</p>
+            
+            <button class="pink-button" onclick="goToScreen('wishes-reveal-screen')">I've Made My Wish! 🤞</button>
+        </div>
 
-        <div id="wishes-reveal-screen" class="card">
-            <h2 style="font-size: 1.8em;">Birthday Wishes Cards <span style="font-size: 1.2em;">🎁</span></h2>
-            <p class="subtitle">Click each card to reveal a birthday message!</p>
+        <div id="wishes-reveal-screen" class="card">
+            <h2 style="font-size: 1.8em;">Birthday Wishes Cards <span style="font-size: 1.2em;">🎁</span></h2>
+            <p class="subtitle">Click each card to reveal a birthday message!</p>
 
-            <div class="wishes-grid">
-                <div id="wish-1" class="wish-card" onclick="flipCard(this, 1)">
-                    <div class="card-inner">
-                        <div class="card-face card-front">Tap to Reveal Wish 1</div>
-                        <div class="card-face card-back">
-                            <p>Happy Birthday to the girl who makes every day feel like a celebration! 💕</p>
-                        </div>
-                    </div>
-                </div>
-                <div id="wish-2" class="wish-card" onclick="flipCard(this, 2)">
-                    <div class="card-inner">
-                        <div class="card-face card-front">Tap to Reveal Wish 2</div>
-                        <div class="card-face card-back">
-                            <p>Another year of being absolutely incredible, beautiful, and perfect just the way you are! ✨</p>
-                        </div>
-                    </div>
-                </div>
-                <div id="wish-3" class="wish-card" onclick="flipCard(this, 3)">
-                    <div class="card-inner">
-                        <div class="card-face card-front">Tap to Reveal Wish 3</div>
-                        <div class="card-face card-back">
-                            <p>May this new year bring you endless joy, love, and all the dreams your heart desires! ☀️💖</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <p id="unlock-message">0 of 3 birthday wishes unlocked! Keep going ✨</p>
-            <button id="wishes-continue-btn" class="pink-button" onclick="goToScreen('final-letter-screen')" style="display: none;">Open Final Birthday Letter 💌</button>
-        </div>
+            <div class="wishes-grid">
+                <div id="wish-1" class="wish-card" onclick="flipCard(this, 1)">
+                    <div class="card-inner">
+                        <div class="card-face card-front">Tap to Reveal Wish 1</div>
+                        <div class="card-face card-back">
+                            <p>Happy Birthday to the girl who makes every day feel like a celebration! 💕</p>
+                        </div>
+                    </div>
+                </div>
+                <div id="wish-2" class="wish-card" onclick="flipCard(this, 2)">
+                    <div class="card-inner">
+                        <div class="card-face card-front">Tap to Reveal Wish 2</div>
+                        <div class="card-face card-back">
+                            <p>Another year of being absolutely incredible, beautiful, and perfect just the way you are! ✨</p>
+                        </div>
+                    </div>
+                </div>
+                <div id="wish-3" class="wish-card" onclick="flipCard(this, 3)">
+                    <div class="card-inner">
+                        <div class="card-face card-front">Tap to Reveal Wish 3</div>
+                        <div class="card-face card-back">
+                            <p>May this new year bring you endless joy, love, and all the dreams your heart desires! ☀️💖</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <p id="unlock-message">0 of 3 birthday wishes unlocked! Keep going ✨</p>
+            <button id="wishes-continue-btn" class="pink-button" onclick="goToScreen('final-letter-screen')" style="display: none;">Open Final Birthday Letter 💌</button>
+        </div>
 
-        <div id="final-letter-screen" class="card">
-            <h2 style="font-size: 1.8em;">Final Birthday Letter <span style="font-size: 1.2em;">💖</span></h2>
-            <p class="subtitle">A special message sealed with love</p>
-            
-            <img class="decoration-img cat-image" src="images/kitty_heart.png" alt="Kitty holding heart"> 
-            <h3 style="color: #ff69b4; text-align: left; margin-top: 10px;">Final Birthday Love Letter</h3>
-            
-            <div class="love-letter-text">
-                <p style="color: #ff69b4; font-style: italic;">My dearest anjali,</p>
-                <p>May this new year bring you everything your heart desires and more joy than you can imagine. Happy Birthday, my love. You deserve the world and so much more. 🎂✨</p>
-            </div>
-            
-            <button class="pink-button" onclick="goToScreen('sealed-letter-screen')">Seal The Letter 👑</button>
-        </div>
+        <div id="final-letter-screen" class="card">
+            <h2 style="font-size: 1.8em;">Final Birthday Letter <span style="font-size: 1.2em;">💖</span></h2>
+            <p class="subtitle">A special message sealed with love</p>
+            
+            <img class="decoration-img cat-image" src="images/kitty_heart.png" alt="Kitty holding heart"> 
+            <h3 style="color: #ff69b4; text-align: left; margin-top: 10px;">Final Birthday Love Letter</h3>
+            
+            <div class="love-letter-text">
+                <p style="color: #ff69b4; font-style: italic;">My dearest anuradha,</p>
+                <p>May this new year bring you everything your heart desires and more joy than you can imagine. Happy Birthday, my love. You deserve the world and so much more. 🎂✨</p>
+            </div>
+            
+            <button class="pink-button" onclick="goToScreen('sealed-letter-screen')">Seal The Letter 👑</button>
+        </div>
 
-        <div id="sealed-letter-screen" class="card">
-            <h2 style="font-size: 1.8em;">Birthday Letter Sealed with Love <span style="font-size: 1.2em;">💖</span></h2>
-            <p class="subtitle">Happy Birthday, My Everything 🥳</p>
-            
-            <h1 style="font-size: 2em; margin: 20px 0;">Forever Yours, Happy Birthday!</h1>
-            
-            <button class="pink-button" onclick="stopAndRestart()">Experience Birthday Magic Again ✨</button>
-            <button class="green-button" style="margin-top: 15px;" onclick="sendKisses()">Send Birthday Kisses 💋</button>
-        </div>
+        <div id="sealed-letter-screen" class="card">
+            <h2 style="font-size: 1.8em;">Birthday Letter Sealed with Love <span style="font-size: 1.2em;">💖</span></h2>
+            <p class="subtitle">Happy Birthday, My Everything 🥳</p>
+            
+            <h1 style="font-size: 2em; margin: 20px 0;">Forever Yours, Happy Birthday!</h1>
+            
+            <button class="pink-button" onclick="stopAndRestart()">Experience Birthday Magic Again ✨</button>
+            <button class="green-button" style="margin-top: 15px;" onclick="sendKisses()">Send Birthday Kisses 💋</button>
+        </div>
 
-    </div>
+    </div>
 
-    <script>
-        // --- Global Variables ---
-        let currentSlide = 0;
-        const slides = document.querySelectorAll('.carousel-item');
-        let wishesUnlocked = 0;
-        const wishesCount = 3;
-        const bgMusic = document.getElementById('bg-music');
-        
-        // Cake Cutting Variables
-        const cakeContainer = document.getElementById('cake-container');
-        const dragLine = document.getElementById('drag-line');
-        const cutLine = document.getElementById('cut-line');
-        let isDragging = false;
-        let cutCompleted = false;
-        let startX = 0;
-        let startY = 0;
+    <script>
+        // --- Global Variables ---
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.carousel-item');
+        let wishesUnlocked = 0;
+        const wishesCount = 3;
+        const bgMusic = document.getElementById('bg-music');
+        
+        // Cake Cutting Variables
+        const cakeContainer = document.getElementById('cake-container');
+        const dragLine = document.getElementById('drag-line');
+        const cutLine = document.getElementById('cut-line');
+        let isDragging = false;
+        let cutCompleted = false;
+        let startX = 0;
+        let startY = 0;
 
-        // Kiss Explosion Variables
-        const kissExplosionContainer = document.getElementById('kiss-explosion-container');
-        const kissEmojis = ['💋', '💖', '💕', '😘', '❤️'];
+        // Kiss Explosion Variables
+        const kissExplosionContainer = document.getElementById('kiss-explosion-container');
+        const kissEmojis = ['💋', '💖', '💕', '😘', '❤️'];
 
-        // --- Music Playback Function ---
-        function playSong(audioSrc) {
-            bgMusic.pause();
-            bgMusic.src = audioSrc;
-            bgMusic.load();
-            
-            bgMusic.play().catch(error => {
-                console.log("Audio playback failed:", error);
-                if (bgMusic.paused) {
-                    alert("Music is ready, but your browser might need another tap/click to start the song! Try tapping the album cover again.");
-                }
-            });
-        }
-        
-        function stopMusic() {
-            bgMusic.pause();
-            bgMusic.src = '';
-            bgMusic.load();
-        }
-        
-        function stopAndRestart() {
-            stopMusic();
-            wishesUnlocked = 0;
-            document.querySelectorAll('.wish-card').forEach(card => card.classList.remove('flipped'));
-            document.getElementById('wishes-continue-btn').style.display = 'none';
-            document.getElementById('unlock-message').textContent = `0 of ${wishesCount} birthday wishes unlocked! Keep going ✨`;
-            
-            // Reset cake state
-            cutCompleted = false;
-            cutLine.style.transform = 'translateY(-50%) scaleX(0)'; 
-            document.getElementById('cake-uncut').style.opacity = '1';
-            document.getElementById('cake-cut').style.opacity = '0';
-            document.getElementById('cut-message').style.display = 'none';
-            document.getElementById('cake-continue-btn').style.display = 'none';
+        // --- Music Playback Function ---
+        function playSong(audioSrc) {
+            bgMusic.pause();
+            bgMusic.src = audioSrc;
+            bgMusic.load();
+            
+            bgMusic.play().catch(error => {
+                console.log("Audio playback failed:", error);
+                if (bgMusic.paused) {
+                    alert("Music is ready, but your browser might need another tap/click to start the song! Try tapping the album cover again.");
+                }
+            });
+        }
+        
+        function stopMusic() {
+            bgMusic.pause();
+            bgMusic.src = '';
+            bgMusic.load();
+        }
+        
+        function stopAndRestart() {
+            stopMusic();
+            wishesUnlocked = 0;
+            document.querySelectorAll('.wish-card').forEach(card => card.classList.remove('flipped'));
+            document.getElementById('wishes-continue-btn').style.display = 'none';
+            document.getElementById('unlock-message').textContent = `0 of ${wishesCount} birthday wishes unlocked! Keep going ✨`;
+            
+            // Reset cake state
+            cutCompleted = false;
+            cutLine.style.transform = 'translateY(-50%) scaleX(0)'; 
+            document.getElementById('cake-uncut').style.opacity = '1';
+            document.getElementById('cake-cut').style.opacity = '0';
+            document.getElementById('cut-message').style.display = 'none';
+            document.getElementById('cake-continue-btn').style.display = 'none';
 
-            goToScreen('greeting-screen');
-        }
+            goToScreen('greeting-screen');
+        }
 
-        // --- Core Navigation Function ---
-        function goToScreen(screenId) {
-            
-            // CONFFETI LOGIC: Show confetti on the first screen only
-            if (screenId === 'greeting-screen') {
-                document.getElementById('confetti-holder').style.display = 'block';
-                // Hide confetti after a few seconds so it looks like a proper burst
-                setTimeout(() => {
-                    document.getElementById('confetti-holder').style.display = 'none';
-                }, 3000); 
-            } else {
-                document.getElementById('confetti-holder').style.display = 'none';
-            }
+        // --- Core Navigation Function ---
+        function goToScreen(screenId) {
+            
+            // CONFFETI LOGIC: Show confetti on the first screen only
+            if (screenId === 'greeting-screen') {
+                document.getElementById('confetti-holder').style.display = 'block';
+                // Hide confetti after a few seconds so it looks like a proper burst
+                setTimeout(() => {
+                    document.getElementById('confetti-holder').style.display = 'none';
+                }, 3000); 
+            } else {
+                document.getElementById('confetti-holder').style.display = 'none';
+            }
 
-            // Exit animation
-            document.querySelectorAll('.card.active').forEach(card => {
-                card.classList.remove('active');
-            });
+            // Exit animation
+            document.querySelectorAll('.card.active').forEach(card => {
+                card.classList.remove('active');
+            });
 
-            // Hide all screens
-            document.querySelectorAll('.card').forEach(card => {
-                card.style.display = 'none';
-            });
-            
-            // Show the target screen and enter animation
-            const nextScreen = document.getElementById(screenId);
-            nextScreen.style.display = 'block';
-            
-            setTimeout(() => {
-                nextScreen.classList.add('active');
-            }, 10); 
-            
-            if (screenId === 'playlist-screen') {
-                currentSlide = 0;
-                updateCarousel();
-            }
-        }
+            // Hide all screens
+            document.querySelectorAll('.card').forEach(card => {
+                card.style.display = 'none';
+            });
+            
+            // Show the target screen and enter animation
+            const nextScreen = document.getElementById(screenId);
+            nextScreen.style.display = 'block';
+            
+            setTimeout(() => {
+                nextScreen.classList.add('active');
+            }, 10); 
+            
+            if (screenId === 'playlist-screen') {
+                currentSlide = 0;
+                updateCarousel();
+            }
+        }
 
-        // --- Playlist Carousel Logic (SCREEN 4) (Unchanged) ---
-        function updateCarousel() {
-            slides.forEach((slide, index) => {
-                slide.style.transform = `translateX(-${currentSlide * 100}%)`;
-            });
-        }
+        // --- Playlist Carousel Logic (SCREEN 4) ---
+        function updateCarousel() {
+            slides.forEach((slide, index) => {
+                slide.style.transform = `translateX(-${currentSlide * 100}%)`;
+            });
+        }
 
-        function changeSlide(direction) {
-            currentSlide += direction;
-            if (currentSlide < 0) {
-                currentSlide = slides.length - 1;
-            } else if (currentSlide >= slides.length) {
-                currentSlide = 0;
-            }
-            updateCarousel();
-        }
+        function changeSlide(direction) {
+            currentSlide += direction;
+            if (currentSlide < 0) {
+                currentSlide = slides.length - 1;
+            } else if (currentSlide >= slides.length) {
+                currentSlide = 0;
+            }
+            updateCarousel();
+        }
 
-        // --- Cake Cutting Drag/Swipe Logic (SCREEN 5) (Unchanged) ---
-        function getCoords(event) {
-            const rect = cakeContainer.getBoundingClientRect();
-            let x, y;
-            
-            if (event.touches) {
-                x = event.touches[0].clientX - rect.left;
-                y = event.touches[0].clientY - rect.top;
-            } 
-            else {
-                x = event.clientX - rect.left;
-                y = event.clientY - rect.top;
-            }
-            return { x, y };
-        }
+        // --- Cake Cutting Drag/Swipe Logic (SCREEN 5) ---
+        function getCoords(event) {
+            const rect = cakeContainer.getBoundingClientRect();
+            let x, y;
+            
+            if (event.touches) {
+                x = event.touches[0].clientX - rect.left;
+                y = event.touches[0].clientY - rect.top;
+            } 
+            else {
+                x = event.clientX - rect.left;
+                y = event.clientY - rect.top;
+            }
+            return { x, y };
+        }
 
-        function startCut(event) {
-            if (cutCompleted) return;
-            isDragging = true;
-            dragLine.style.opacity = 1;
-            const coords = getCoords(event);
-            startX = coords.x;
-            startY = coords.y;
-            
-            dragLine.style.left = `${startX}px`;
-            dragLine.style.top = `${startY}px`;
-            dragLine.style.width = '0px';
-        }
+        function startCut(event) {
+            if (cutCompleted) return;
+            isDragging = true;
+            dragLine.style.opacity = 1;
+            const coords = getCoords(event);
+            startX = coords.x;
+            startY = coords.y;
+            
+            dragLine.style.left = `${startX}px`;
+            dragLine.style.top = `${startY}px`;
+            dragLine.style.width = '0px';
+        }
 
-        function moveCut(event) {
-            if (!isDragging || cutCompleted) return;
-            event.preventDefault();
+        function moveCut(event) {
+            if (!isDragging || cutCompleted) return;
+            event.preventDefault();
 
-            const coords = getCoords(event);
-            const currentX = coords.x;
-            const currentY = coords.y;
+            const coords = getCoords(event);
+            const currentX = coords.x;
+            const currentY = coords.y;
 
-            const deltaX = currentX - startX;
-            const deltaY = currentY - startY;
-            const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
-            const angle = Math.atan2(deltaY, deltaX) * (180 / Math.PI);
+            const deltaX = currentX - startX;
+            const deltaY = currentY - startY;
+            const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+            const angle = Math.atan2(deltaY, deltaX) * (180 / Math.PI);
 
-            dragLine.style.width = `${distance}px`;
-            dragLine.style.transform = `rotate(${angle}deg)`;
-        }
+            dragLine.style.width = `${distance}px`;
+            dragLine.style.transform = `rotate(${angle}deg)`;
+        }
 
-        function endCut(event) {
-            if (!isDragging || cutCompleted) return;
-            isDragging = false;
-            dragLine.style.opacity = 0;
+        function endCut(event) {
+            if (!isDragging || cutCompleted) return;
+            isDragging = false;
+            dragLine.style.opacity = 0;
 
-            const coords = getCoords(event.changedTouches ? event.changedTouches[0] : event);
-            const endX = coords.x;
-            
-            const cakeWidth = cakeContainer.clientWidth;
-            const cutLength = Math.abs(endX - startX); 
+            const coords = getCoords(event.changedTouches ? event.changedTouches[0] : event);
+            const endX = coords.x;
+            
+            const cakeWidth = cakeContainer.clientWidth;
+            const cutLength = Math.abs(endX - startX); 
 
-            if (cutLength > (cakeWidth * 0.7)) {
-                cutCompleted = true;
-                
-                cutLine.style.transform = 'translateY(-50%) scaleX(1)';
-                
-                document.getElementById('cake-uncut').style.opacity = '0';
-                document.getElementById('cake-cut').style.opacity = '1';
-                
-                document.getElementById('cut-message').style.display = 'block';
-                document.getElementById('cake-continue-btn').style.display = 'block';
-            }
-        }
+            if (cutLength > (cakeWidth * 0.7)) {
+                cutCompleted = true;
+                
+                cutLine.style.transform = 'translateY(-50%) scaleX(1)';
+                
+                document.getElementById('cake-uncut').style.opacity = '0';
+                document.getElementById('cake-cut').style.opacity = '1';
+                
+                document.getElementById('cut-message').style.display = 'block';
+                document.getElementById('cake-continue-btn').style.display = 'block';
+            }
+        }
 
-        cakeContainer.addEventListener('mousedown', startCut);
-        cakeContainer.addEventListener('mousemove', moveCut);
-        document.addEventListener('mouseup', endCut); 
-        
-        cakeContainer.addEventListener('touchstart', startCut);
-        cakeContainer.addEventListener('touchmove', moveCut);
-        document.addEventListener('touchend', endCut);
-
-
-        // --- Wish Card Flip Logic (SCREEN 7) (Unchanged) ---
-        function flipCard(cardElement, wishNumber) {
-            if (cardElement.classList.contains('flipped')) {
-                return;
-            }
-
-            cardElement.classList.add('flipped');
-            wishesUnlocked++;
-            
-            document.getElementById('unlock-message').textContent = `${wishesUnlocked} of ${wishesCount} birthday wishes unlocked! Keep going ✨`;
-
-            if (wishesUnlocked === wishesCount) {
-                document.getElementById('unlock-message').textContent = "Amazing! All birthday wishes revealed! ✨";
-                document.getElementById('wishes-continue-btn').style.display = 'block';
-            }
-        }
-        
-        // --- Kiss Explosion Function (New) ---
-        function sendKisses() {
-            const button = document.querySelector('#sealed-letter-screen .green-button');
-            const rect = button.getBoundingClientRect();
-            
-            // Calculate center position of the button
-            const centerX = rect.left + rect.width / 2;
-            const centerY = rect.top + rect.height / 2;
-
-            // Clear previous kisses
-            kissExplosionContainer.innerHTML = '';
-            
-            // Create 30 kisses/hearts
-            for (let i = 0; i < 30; i++) {
-                const kiss = document.createElement('div');
-                kiss.classList.add('kiss-emoji');
-                
-                // Randomly select emoji
-                kiss.textContent = kissEmojis[Math.floor(Math.random() * kissEmojis.length)];
-                
-                // Random size (small to big)
-                const size = Math.random() * 0.8 + 1.2; // 1.2em to 2.0em
-                kiss.style.fontSize = `${size}em`;
-                
-                // Starting position centered on the button
-                kiss.style.left = `${centerX}px`;
-                kiss.style.top = `${centerY}px`;
-                
-                // Random end position (floating up and out)
-                const endX = (Math.random() - 0.5) * window.innerWidth / 2; // Horizontal spread
-                const endY = -window.innerHeight * (Math.random() * 0.5 + 0.3); // Float upwards 30% to 80% of screen height
-                
-                // Set CSS variables for animation
-                kiss.style.setProperty('--x-end', `${endX}px`);
-                kiss.style.setProperty('--y-end', `${endY}px`);
-                kiss.style.setProperty('--scale', Math.random() * 0.5 + 0.5); // End scale 0.5 to 1.0
-                
-                // Random animation delay
-                kiss.style.animationDelay = `${Math.random() * 0.5}s`;
-                
-                kissExplosionContainer.appendChild(kiss);
-
-                // Remove the element after animation ends (2.5 seconds total)
-                setTimeout(() => {
-                    kiss.remove();
-                }, 2500);
-            }
-        }
+        cakeContainer.addEventListener('mousedown', startCut);
+        cakeContainer.addEventListener('mousemove', moveCut);
+        document.addEventListener('mouseup', endCut); 
+        
+        cakeContainer.addEventListener('touchstart', startCut);
+        cakeContainer.addEventListener('touchmove', moveCut);
+        document.addEventListener('touchend', endCut);
 
 
-        // --- Initialize the Website ---
-        window.onload = function() {
-            goToScreen('greeting-screen'); 
-        };
-    </script>
+        // --- Wish Card Flip Logic (SCREEN 7) ---
+        function flipCard(cardElement, wishNumber) {
+            if (cardElement.classList.contains('flipped')) {
+                return;
+            }
+
+            cardElement.classList.add('flipped');
+            wishesUnlocked++;
+            
+            document.getElementById('unlock-message').textContent = `${wishesUnlocked} of ${wishesCount} birthday wishes unlocked! Keep going ✨`;
+
+            if (wishesUnlocked === wishesCount) {
+                document.getElementById('unlock-message').textContent = "Amazing! All birthday wishes revealed! ✨";
+                document.getElementById('wishes-continue-btn').style.display = 'block';
+            }
+        }
+        
+        // --- Kiss Explosion Function ---
+        function sendKisses() {
+            const button = document.querySelector('#sealed-letter-screen .green-button');
+            const rect = button.getBoundingClientRect();
+            
+            // Calculate center position of the button
+            const centerX = rect.left + rect.width / 2;
+            const centerY = rect.top + rect.height / 2;
+
+            // Clear previous kisses
+            kissExplosionContainer.innerHTML = '';
+            
+            // Create 30 kisses/hearts
+            for (let i = 0; i < 30; i++) {
+                const kiss = document.createElement('div');
+                kiss.classList.add('kiss-emoji');
+                
+                // Randomly select emoji
+                kiss.textContent = kissEmojis[Math.floor(Math.random() * kissEmojis.length)];
+                
+                // Random size (small to big)
+                const size = Math.random() * 0.8 + 1.2; // 1.2em to 2.0em
+                kiss.style.fontSize = `${size}em`;
+                
+                // Starting position centered on the button
+                kiss.style.left = `${centerX}px`;
+                kiss.style.top = `${centerY}px`;
+                
+                // Random end position (floating up and out)
+                const endX = (Math.random() - 0.5) * window.innerWidth / 2; // Horizontal spread
+                const endY = -window.innerHeight * (Math.random() * 0.5 + 0.3); // Float upwards 30% to 80% of screen height
+                
+                // Set CSS variables for animation
+                kiss.style.setProperty('--x-end', `${endX}px`);
+                kiss.style.setProperty('--y-end', `${endY}px`);
+                kiss.style.setProperty('--scale', Math.random() * 0.5 + 0.5); // End scale 0.5 to 1.0
+                
+                // Random animation delay
+                kiss.style.animationDelay = `${Math.random() * 0.5}s`;
+                
+                kissExplosionContainer.appendChild(kiss);
+
+                // Remove the element after animation ends (2.5 seconds total)
+                setTimeout(() => {
+                    kiss.remove();
+                }, 2500);
+            }
+        }
+
+
+        // --- Initialize the Website ---
+        window.onload = function() {
+            goToScreen('greeting-screen'); 
+        };
+    </script>
 </body>
-
 </html>
