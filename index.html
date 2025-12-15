@@ -6,12 +6,13 @@
     <title>sreehara Magical Birthday Surprise!</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
     <style>
-        /* --- 1. Global Styles and Background --- */
+        /* --- 1. Global Styles and Enhanced Background --- */
         body {
             font-family: 'Poppins', sans-serif;
             margin: 0;
             padding: 0;
-            background: linear-gradient(to bottom, #fff5e6, #ffe0f0);
+            /* Use a simple base gradient for the new layered background */
+            background: linear-gradient(to bottom, #fff7f7 0%, #ffe0f0 100%);
             min-height: 100vh;
             display: flex;
             justify-content: center;
@@ -19,88 +20,60 @@
             padding-top: 40px;
             overflow-x: hidden;
             color: #333;
+            position: relative; 
         }
 
-        /* --- 2. Confetti Animation (Intense Party Popper Effect) --- */
+        /* --- 1.1 Decorative Background Elements --- */
+        .decoration-layer {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; overflow: hidden; z-index: 1; 
+        }
+        .decoration-layer div {
+            position: absolute; background-size: contain; background-repeat: no-repeat; opacity: 0.7; 
+        }
+        #decor-star-yellow { background-image: url('bg_assets/star_yellow.png'); width: 100px; height: 100px; top: 15%; left: 5%; transform: rotate(-10deg); }
+        #decor-star-pink { background-image: url('bg_assets/star_pink.png'); width: 60px; height: 60px; bottom: 10%; right: 15%; transform: rotate(20deg); }
+        #decor-cloud-blue { background-image: url('bg_assets/cloud_blue.png'); width: 150px; height: 100px; top: 18%; right: 5%; }
+        #decor-heart-small { background-image: url('bg_assets/heart_pink_small.png'); width: 25px; height: 25px; top: 50%; left: 10%; }
+        #decor-cake { background-image: url('bg_assets/cake_small.png'); width: 50px; height: 50px; top: 5%; left: 2%; }
+
+        /* --- 2. Confetti Animation (Customized for Slow Explosion) --- */
         .confetti-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            overflow: hidden;
-            z-index: 9999;
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; overflow: hidden; z-index: 9999;
         }
         .confetti {
-            position: absolute;
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            opacity: 0;
-            animation: fall 3s ease-in-out infinite;
+            position: absolute; 
+            width: 10px; 
+            height: 10px; 
+            border-radius: 50%; 
+            opacity: 0; 
+            /* *** SLOWER ANIMATION DURATION: 10 SECONDS *** */
+            animation: confetti-fall 10s ease-out forwards; 
         }
-        /* Define colors for variety */
-        .confetti:nth-child(5n+1) { background-color: #ff69b4; }
-        .confetti:nth-child(5n+2) { background-color: #6ee6a9; }
-        .confetti:nth-child(5n+3) { background-color: #fff5e6; }
-        .confetti:nth-child(5n+4) { background-color: #fce4ec; width: 6px; height: 6px; }
-        .confetti:nth-child(5n)   { background-color: #ffc0cb; width: 10px; height: 10px; }
         
-        @keyframes fall {
-            0% { transform: translateY(-100px) rotate(0deg) scale(1); opacity: 1; }
-            100% { transform: translateY(100vh) rotate(720deg) scale(0.5); opacity: 0; }
+        /* The falling explosion animation */
+        @keyframes confetti-fall {
+            0% { 
+                /* Start at the launch point with full opacity and no rotation */
+                transform: translate(0, 0) rotate(0deg); 
+                opacity: 1; 
+            }
+            100% { 
+                /* End position and rotation are set by JavaScript variables */
+                transform: translate(var(--end-x), var(--end-y)) rotate(var(--rot)); 
+                opacity: 0; 
+            }
         }
-
-        /* Apply staggered animation delays (reduced for brevity, see code block for full list) */
-        .confetti:nth-child(1) { left: 5%; animation-delay: 0.1s; animation-duration: 2.5s; }
-        .confetti:nth-child(2) { left: 10%; animation-delay: 0.2s; animation-duration: 3s; }
-        .confetti:nth-child(3) { left: 15%; animation-delay: 0.3s; animation-duration: 2.8s; }
-        .confetti:nth-child(4) { left: 20%; animation-delay: 0.4s; animation-duration: 3.2s; }
-        .confetti:nth-child(5) { left: 25%; animation-delay: 0.5s; animation-duration: 2.7s; }
-        .confetti:nth-child(6) { left: 30%; animation-delay: 0.6s; animation-duration: 3.5s; }
-        .confetti:nth-child(7) { left: 35%; animation-delay: 0.7s; animation-duration: 2.9s; }
-        .confetti:nth-child(8) { left: 40%; animation-delay: 0.8s; animation-duration: 3.1s; }
-        .confetti:nth-child(9) { left: 45%; animation-delay: 0.9s; animation-duration: 2.6s; }
-        .confetti:nth-child(10) { left: 50%; animation-delay: 1.0s; animation-duration: 3.3s; }
-        .confetti:nth-child(11) { left: 55%; animation-delay: 0.15s; animation-duration: 2.9s; }
-        .confetti:nth-child(12) { left: 60%; animation-delay: 0.25s; animation-duration: 3.1s; }
-        .confetti:nth-child(13) { left: 65%; animation-delay: 0.35s; animation-duration: 2.6s; }
-        .confetti:nth-child(14) { left: 70%; animation-delay: 0.45s; animation-duration: 3.4s; }
-        .confetti:nth-child(15) { left: 75%; animation-delay: 0.55s; animation-duration: 2.8s; }
-        .confetti:nth-child(16) { left: 80%; animation-delay: 0.65s; animation-duration: 3.2s; }
-        .confetti:nth-child(17) { left: 85%; animation-delay: 0.75s; animation-duration: 2.7s; }
-        .confetti:nth-child(18) { left: 90%; animation-delay: 0.85s; animation-duration: 3s; }
-        .confetti:nth-child(19) { left: 95%; animation-delay: 0.95s; animation-duration: 3.5s; }
-        .confetti:nth-child(20) { left: 2%; animation-delay: 0.05s; animation-duration: 2.5s; }
-
-
-        /* --- 3. Main Container and Card Styling (Unchanged) --- */
-        .container {
-            width: 95%;
-            max-width: 450px;
-            text-align: center;
-        }
-
+        
+        /* --- 3. Main Container and Card Styling --- */
+        .container { width: 95%; max-width: 450px; text-align: center; z-index: 10; }
         .card {
-            background-color: white;
-            padding: 30px 20px;
-            border-radius: 30px;
-            box-shadow: 0 10px 30px rgba(255, 105, 180, 0.3);
-            margin-top: 20px;
-            display: none;
-            /* Animation Properties */
-            opacity: 0;
-            transform: scale(0.8);
-            transition: opacity 0.5s ease-out, transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.27);
+            background-color: white; padding: 30px 20px; border-radius: 30px; box-shadow: 0 10px 30px rgba(255, 105, 180, 0.3); margin-top: 20px; display: none;
+            /* INTENSE CARD POP-IN */
+            opacity: 0; transform: scale(0.6); transition: opacity 0.3s ease-out, transform 0.4s cubic-bezier(0.2, 0.9, 0.3, 1.4);
         }
-        
-        .card.active {
-            opacity: 1;
-            transform: scale(1);
-        }
+        .card.active { opacity: 1; transform: scale(1); }
 
-        /* --- 4. Typography, Buttons, and Images (Unchanged) --- */
+        /* --- 4. Typography, Buttons, and Images --- */
         h1, h2 { color: #ff69b4; font-weight: 800; }
         .subtitle { font-size: 1.1em; color: #666; margin-top: 5px; }
         .love-letter-text { font-family: 'Georgia', serif; font-size: 1.05em; line-height: 1.6; text-align: left; padding: 15px; }
@@ -113,94 +86,94 @@
         .pink-button:hover, .green-button:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(255, 105, 180, 0.6); }
         .pink-button:active, .green-button:active { transform: translateY(0); box-shadow: 0 5px 15px rgba(255, 105, 180, 0.5); }
 
-        .decoration-img { max-width: 80px; height: auto; border-radius: 15px; }
+        /* **INCREASED CAT IMAGE SIZE** */
+        .decoration-img { max-width: 120px; height: auto; border-radius: 15px; } 
         .cat-image { float: right; margin-left: 10px; }
         .envelope-image { width: 150px; margin: 20px auto; display: block; }
-        .album-art { width: 100%; height: auto; border-radius: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); transition: transform 0.2s; }
-        .album-art:hover { transform: scale(1.03); }
-
-        /* --- 5. Cake Cutting Styles (Interactive Drag) (Unchanged) --- */
-        .cake-container {
-            margin: 20px auto;
+        
+        /* --- NEW STYLES FOR ALBUM ART AND PLAY BUTTONS --- */
+        .album-art-wrapper {
             position: relative;
-            width: 250px;
-            height: 250px;
+            width: 100%;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            transition: transform 0.2s;
+        }
+        .album-art-wrapper:hover {
+            transform: scale(1.03); /* Keep the hover effect on the wrapper */
+        }
+        .album-art { 
+            width: 100%; 
+            height: auto; 
+            border-radius: 15px;
+            display: block; 
+        }
+        .play-pause-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             display: flex;
             justify-content: center;
             align-items: center;
-            cursor: pointer;
+            background-color: rgba(0, 0, 0, 0.4); /* Dark overlay */
+            border-radius: 15px;
+            opacity: 1; /* Initially visible (showing 'play') */
+            transition: opacity 0.3s ease;
         }
-        .cake-img {
-            width: 100%;
-            height: 100%;
-            position: absolute;
-            top: 0;
-            left: 0;
-            transition: opacity 0.5s;
+        .play-pause-overlay .icon {
+            width: 50px; /* Size of the icon */
+            height: 50px;
+            filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.8)); /* Glow effect */
         }
-        #cake-cut { opacity: 0; }
+        /* State when music is playing: hide the overlay */
+        .album-item.playing .play-pause-overlay {
+            opacity: 0; 
+        }
+        .album-item.playing .play-pause-overlay .play-icon {
+            display: none !important;
+        }
+        .album-item:not(.playing) .play-pause-overlay .pause-icon {
+            display: none !important;
+        }
+        /* END NEW STYLES */
+
+        /* **INCREASED CAT SHAKE SPEED** */
+        .kitty-shake { animation: gentleShake 0.5s infinite ease-in-out; } 
+
+        @keyframes gentleShake {
+            0%, 100% { transform: translateX(0) rotate(0); }
+            25% { transform: translateX(-3px) rotate(-1deg); }
+            75% { transform: translateX(3px) rotate(1deg); }
+        }
+
+        /* INTENSE CLICK FEEDBACK */
+        .button-pop { animation: intensePop 0.5s ease-out forwards; }
+
+        @keyframes intensePop {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.15); }
+            100% { transform: scale(1); }
+        }
         
-        /* The beautiful, sparkly line that follows the drag */
-        #drag-line {
-            position: absolute;
-            height: 5px;
-            background: linear-gradient(90deg, transparent, #ffc0cb, #ff69b4, #ffc0cb, transparent);
-            box-shadow: 0 0 10px #ff69b4, 0 0 20px #ffc0cb;
-            border-radius: 5px;
-            transform-origin: left;
-            transition: opacity 0.05s;
-            opacity: 0;
-            pointer-events: none;
-            z-index: 5;
-        }
-
-        /* The permanent cut line that appears on success */
-        #cut-line {
-            position: absolute;
-            top: 50%;
-            left: 0;
-            width: 100%;
-            height: 3px;
-            background-color: #ff69b4;
-            transform: translateY(-50%) scaleX(0);
-            transform-origin: left;
-            transition: transform 0.5s;
-            z-index: 6; 
-        }
-
-        #cut-message {
-            margin-top: 20px;
-            color: #ff69b4;
-            font-weight: 600;
-            font-size: 1.1em;
-            display: none;
-        }
+        /* --- 6. Cake Cutting Styles (Interactive Drag) --- */
+        .cake-container { margin: 20px auto; position: relative; width: 250px; height: 250px; display: flex; justify-content: center; align-items: center; cursor: pointer; }
+        .cake-img { width: 100%; height: 100%; position: absolute; top: 0; left: 0; transition: opacity 0.5s; }
+        #cake-cut { opacity: 0; }
+        #drag-line { position: absolute; height: 5px; background: linear-gradient(90deg, transparent, #ffc0cb, #ff69b4, #ffc0cb, transparent); box-shadow: 0 0 10px #ff69b4, 0 0 20px #ffc0cb; border-radius: 5px; transform-origin: left; transition: opacity 0.05s; opacity: 0; pointer-events: none; z-index: 5; }
+        #cut-line { position: absolute; top: 50%; left: 0; width: 100%; height: 3px; background-color: #ff69b4; transform: translateY(-50%) scaleX(0); transform-origin: left; transition: transform 0.5s; z-index: 6; }
+        #cut-message { margin-top: 20px; color: #ff69b4; font-weight: 600; font-size: 1.1em; display: none; }
         
         /* --- 7. Kiss Explosion Animation Styles --- */
-        .kiss-explosion-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            overflow: hidden;
-            z-index: 9998; /* Below confetti */
-        }
-        .kiss-emoji {
-            position: absolute;
-            font-size: 2em; /* Default size */
-            opacity: 0;
-            animation: float-up 2s ease-out forwards;
-        }
-
+        .kiss-explosion-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; overflow: hidden; z-index: 9998; }
+        .kiss-emoji { position: absolute; font-size: 2em; opacity: 0; animation: float-up 2s ease-out forwards; }
         @keyframes float-up {
             0% { transform: translate(0, 0) scale(1); opacity: 1; }
             100% { transform: translate(var(--x-end), var(--y-end)) scale(var(--scale)); opacity: 0; }
         }
 
-
-        /* --- 8. Other Styles (Unchanged) --- */
+        /* --- 8. Other Styles --- */
         .carousel-wrapper { display: flex; align-items: center; justify-content: space-between; margin-top: 20px; }
         .carousel { display: flex; overflow: hidden; width: 80%; margin: 0 auto; border-radius: 15px; position: relative; }
         .carousel-item { min-width: 100%; transition: transform 0.4s ease-in-out; cursor: pointer; padding: 5px; }
@@ -217,12 +190,16 @@
 </head>
 <body>
     
-    <div id="confetti-holder" class="confetti-container" style="display: none;">
-        <div class="confetti"></div><div class="confetti"></div><div class="confetti"></div><div class="confetti"></div><div class="confetti"></div>
-        <div class="confetti"></div><div class="confetti"></div><div class="confetti"></div><div class="confetti"></div><div class="confetti"></div>
-        <div class="confetti"></div><div class="confetti"></div><div class="confetti"></div><div class="confetti"></div><div class="confetti"></div>
-        <div class="confetti"></div><div class="confetti"></div><div class="confetti"></div><div class="confetti"></div><div class="confetti"></div>
+    <div class="decoration-layer">
+        <div id="decor-star-yellow"></div>
+        <div id="decor-star-pink"></div>
+        <div id="decor-cloud-blue"></div>
+        <div id="decor-heart-small"></div>
+        <div id="decor-cake"></div>
     </div>
+
+    <div id="confetti-holder" class="confetti-container" style="display: none;">
+        </div>
 
     <div id="kiss-explosion-container" class="kiss-explosion-container"></div>
     
@@ -234,11 +211,11 @@
     <div class="container">
 
         <div id="greeting-screen" class="card">
-            <img class="decoration-img cat-image" src="images/kitty_greeting.png" alt="Cute Kitty"> 
+            <img class="decoration-img cat-image kitty-shake" src="images/kitty_greeting.png" alt="Cute Kitty"> 
             <h1 style="font-size: 2.5em;">Happy Birthday, My monkey! 🎂✨</h1>
             <p>Today is all about celebrating the most amazing person in my world. I've created something magical just for you on your special day...</p>
             <p style="color: #ff69b4; font-weight: 600;">Ready for your birthday surprise?</p>
-            <button class="pink-button" onclick="goToScreen('letter-envelope-screen')">Let's Gooo..</button>
+            <button class="pink-button" onclick="goToScreen('letter-envelope-screen', this)">Let's Gooo..</button>
         </div>
 
         <div id="letter-envelope-screen" class="card">
@@ -248,7 +225,7 @@
             <img class="envelope-image" src="images/envelope.png" alt="Pink Envelope">
             
             <p style="margin-top: 30px;">Click to open your birthday surprise</p>
-            <button class="pink-button" onclick="goToScreen('letter-content-screen')">Birthday Special Delivery 🎁</button>
+            <button class="pink-button" onclick="goToScreen('letter-content-screen', this)">Birthday Special Delivery 🎁</button>
         </div>
 
         <div id="letter-content-screen" class="card">
@@ -261,7 +238,7 @@
                 <p style="text-align: right; color: #ff69b4; margin-top: 20px; font-weight: 600;">Forever yours 💕</p>
             </div>
             
-            <button class="pink-button" onclick="goToScreen('playlist-screen')">Continue It ✨</button>
+            <button class="pink-button" onclick="goToScreen('playlist-screen', this)">Continue It ✨</button>
         </div>
 
         <div id="playlist-screen" class="card">
@@ -271,18 +248,36 @@
             <div class="carousel-wrapper">
                 <button class="carousel-arrow" onclick="changeSlide(-1)">&#10094;</button>
                 <div class="carousel">
-                    <div class="carousel-item" onclick="playSong('audio/song1.mp3')">
-                        <img class="album-art" src="images/album_art_1.png" alt="Dil Cheeze Tujhe Dedi"> 
+                    <div id="slide1" class="carousel-item album-item" onclick="playSong('audio/song1.mp3', 'slide1')">
+                        <div class="album-art-wrapper">
+                            <img class="album-art" src="images/album_art_1.png" alt="Dil Cheeze Tujhe Dedi"> 
+                            <div class="play-pause-overlay">
+                                <img class="icon play-icon" src="images/play_logo.png" alt="Play">
+                                <img class="icon pause-icon" src="images/pause_logo.png" alt="Pause">
+                            </div>
+                        </div>
                         <div class="song-title">Raabta</div>
                         <div class="song-subtitle">Because today is all about YOU, queen! 👑</div>
                     </div>
-                    <div class="carousel-item" onclick="playSong('audio/song2.mp3')">
-                        <img class="album-art" src="images/album_art_2.png" alt="Dil Ka Jo Haal Hai"> 
+                    <div id="slide2" class="carousel-item album-item" onclick="playSong('audio/song2.mp3', 'slide2')">
+                        <div class="album-art-wrapper">
+                            <img class="album-art" src="images/album_art_2.png" alt="Dil Ka Jo Haal Hai"> 
+                            <div class="play-pause-overlay">
+                                <img class="icon play-icon" src="images/play_logo.png" alt="Play">
+                                <img class="icon pause-icon" src="images/pause_logo.png" alt="Pause">
+                            </div>
+                        </div>
                         <div class="song-title">Dil Ka Jo Haal Hai</div>
                         <div class="song-subtitle">Here's to making this year unforgettable ✨</div>
                     </div>
-                    <div class="carousel-item" onclick="playSong('audio/song3.mp3')">
-                        <img class="album-art" src="images/album_art_3.png" alt="If the world was ending..."> 
+                    <div id="slide3" class="carousel-item album-item" onclick="playSong('audio/song3.mp3', 'slide3')">
+                        <div class="album-art-wrapper">
+                            <img class="album-art" src="images/album_art_3.png" alt="If the world was ending..."> 
+                            <div class="play-pause-overlay">
+                                <img class="icon play-icon" src="images/play_logo.png" alt="Play">
+                                <img class="icon pause-icon" src="images/pause_logo.png" alt="Pause">
+                            </div>
+                        </div>
                         <div class="song-title">Tum Ho Toh</div>
                         <div class="song-subtitle">Every beat celebrates your beautiful heart ❤️</div>
                     </div>
@@ -290,7 +285,7 @@
                 <button class="carousel-arrow" onclick="changeSlide(1)">&#10095;</button>
             </div>
             
-            <button class="pink-button" onclick="goToScreen('cake-screen')">Continue to Birthday Surprises ✨</button>
+            <button class="pink-button" onclick="goToScreen('cake-screen', this)">Continue to Birthday Surprises ✨</button>
         </div>
 
         <div id="cake-screen" class="card">
@@ -311,7 +306,7 @@
 
             <p id="cut-message" style="display: none;">Perfect Cut! 🎉 May this year bring you everything your heart desires! ✨</p>
             
-            <button id="cake-continue-btn" class="pink-button" onclick="goToScreen('wish-make-screen')" style="display: none;">Continue to Wish! ✨</button>
+            <button id="cake-continue-btn" class="pink-button" onclick="goToScreen('wish-make-screen', this)" style="display: none;">Continue to Wish! ✨</button>
         </div>
 
         <div id="wish-make-screen" class="card">
@@ -320,7 +315,7 @@
             <p class="subtitle">Close your eyes and make your birthday wish! ☀️</p>
             <p style="margin-top: 20px;">Think of something wonderful for your new year!</p>
             
-            <button class="pink-button" onclick="goToScreen('wishes-reveal-screen')">I've Made My Wish! 🤞</button>
+            <button class="pink-button" onclick="goToScreen('wishes-reveal-screen', this)">I've Made My Wish! 🤞</button>
         </div>
 
         <div id="wishes-reveal-screen" class="card">
@@ -355,7 +350,7 @@
             </div>
             
             <p id="unlock-message">0 of 3 birthday wishes unlocked! Keep going ✨</p>
-            <button id="wishes-continue-btn" class="pink-button" onclick="goToScreen('final-letter-screen')" style="display: none;">Open Final Birthday Letter 💌</button>
+            <button id="wishes-continue-btn" class="pink-button" onclick="goToScreen('final-letter-screen', this)" style="display: none;">Open Final Birthday Letter 💌</button>
         </div>
 
         <div id="final-letter-screen" class="card">
@@ -370,7 +365,7 @@
                 <p>bae i always wondered that what it will feel like when i find love but now i know it is the most beautiful feeling coz i have found you. you make my every day special i love your vlogs you sent me every time i just love hearing your voice tho we have not been together for long but it feels like i have known you from years i just love youu soo much...</p>
             </div>
             
-            <button class="pink-button" onclick="goToScreen('sealed-letter-screen')">Seal The Letter 👑</button>
+            <button class="pink-button" onclick="goToScreen('sealed-letter-screen', this)">Seal The Letter 👑</button>
         </div>
 
         <div id="sealed-letter-screen" class="card">
@@ -379,7 +374,7 @@
             
             <h1 style="font-size: 2em; margin: 20px 0;">Forever Yours, Happy Birthday!</h1>
             
-            <button class="pink-button" onclick="stopAndRestart()">Experience Birthday Magic Again ✨</button>
+            <button class="pink-button" onclick="stopAndRestart(this)">Experience Birthday Magic Again ✨</button>
             <button class="green-button" style="margin-top: 15px;" onclick="sendKisses()">Send Birthday Kisses 💋</button>
         </div>
 
@@ -392,6 +387,7 @@
         let wishesUnlocked = 0;
         const wishesCount = 3;
         const bgMusic = document.getElementById('bg-music');
+        let currentPlayingId = null; // Track which album is currently playing (NEW)
         
         // Cake Cutting Variables
         const cakeContainer = document.getElementById('cake-container');
@@ -400,33 +396,152 @@
         let isDragging = false;
         let cutCompleted = false;
         let startX = 0;
-        let startY = 0;
+        startY = 0;
+
+        // Confetti Variables 
+        const confettiHolder = document.getElementById('confetti-holder');
+        const NUM_PARTICLES = 150; 
+        const CONFETTI_COLORS = ['#ff69b4', '#6ee6a9', '#fff5e6', '#fce4ec', '#ffc0cb'];
+        const CONFETTI_DURATION_MS = 10000; // 10 seconds (Matches CSS animation: 10s)
 
         // Kiss Explosion Variables
         const kissExplosionContainer = document.getElementById('kiss-explosion-container');
         const kissEmojis = ['💋', '💖', '💕', '😘', '❤️'];
 
-        // --- Music Playback Function ---
-        function playSong(audioSrc) {
+        // --- Confetti Generation Function ---
+        function generateConfetti() {
+            // Clear existing confetti before a new burst
+            confettiHolder.innerHTML = ''; 
+
+            for (let i = 0; i < NUM_PARTICLES; i++) {
+                const confetti = document.createElement('div');
+                confetti.classList.add('confetti');
+
+                // Randomly select a color
+                const color = CONFETTI_COLORS[Math.floor(Math.random() * CONFETTI_COLORS.length)];
+                
+                // Randomly choose shape (square or circle)
+                if (Math.random() > 0.5) {
+                    confetti.style.backgroundColor = color;
+                } else {
+                    confetti.style.borderRadius = '50%';
+                    confetti.style.backgroundColor = color; 
+                }
+                
+                // *** WIDESPREAD POP STARTING POSITION ***
+                // Start X: Random position across the entire width
+                const startX = Math.random() * window.innerWidth;
+                // Start Y: Randomly positioned in the top 1/3rd of the screen height
+                const startY = Math.random() * (window.innerHeight / 3); 
+                
+                confetti.style.left = `${startX}px`;
+                confetti.style.top = `${startY}px`;
+                
+                // Random end position (falling outwards and downwards)
+                const range = 500; 
+                // End X is offset from the startX to make it fall slightly sideways
+                const endXOffset = (Math.random() * range * 2 - range); 
+                const endY = window.innerHeight * Math.random() + 100; // Drop far down
+                const rotation = Math.random() * 360 * 15; 
+                
+                // Set CSS variables for the animation (using endXOffset + original startX for total horizontal movement)
+                confetti.style.setProperty('--end-x', `${endXOffset}px`);
+                confetti.style.setProperty('--end-y', `${endY}px`);
+                confetti.style.setProperty('--rot', `${rotation}deg`);
+                
+                // Randomize the animation delay slightly (max 0.5s)
+                confetti.style.animationDelay = `${Math.random() * 0.5}s`;
+                
+                confettiHolder.appendChild(confetti);
+
+                // Remove the element after the animation is complete (10s animation + 0.5s max delay)
+                setTimeout(() => {
+                    confetti.remove();
+                }, CONFETTI_DURATION_MS + 500); 
+            }
+        }
+
+
+        // --- Music Playback Function (MODIFIED) ---
+        function playSong(audioSrc, albumId) {
+            const albumElement = document.getElementById(albumId);
+            
+            // 1. Check if the SAME song is already playing or is paused
+            if (currentPlayingId === albumId) {
+                if (!bgMusic.paused) {
+                    // It is currently playing -> PAUSE it
+                    bgMusic.pause();
+                    albumElement.classList.remove('playing');
+                    return;
+                } else {
+                    // It is currently paused -> RESUME it
+                    bgMusic.play().catch(error => {
+                        console.log("Audio playback failed:", error);
+                    });
+                    albumElement.classList.add('playing');
+                    return;
+                }
+            }
+            
+            // 2. Stop and reset the previously playing song/icon
+            if (currentPlayingId) {
+                document.getElementById(currentPlayingId).classList.remove('playing');
+            }
+
+            // 3. Set the new song
             bgMusic.pause();
             bgMusic.src = audioSrc;
             bgMusic.load();
             
+            // 4. Update state to playing
+            currentPlayingId = albumId;
+            albumElement.classList.add('playing');
+
             bgMusic.play().catch(error => {
                 console.log("Audio playback failed:", error);
                 if (bgMusic.paused) {
                     alert("Music is ready, but your browser might need another tap/click to start the song! Try tapping the album cover again.");
+                    // If playback fails, revert the playing state
+                    albumElement.classList.remove('playing');
+                    currentPlayingId = null;
                 }
             });
+
+            // Set up handlers for external pause/end events
+            bgMusic.onpause = function() {
+                if (currentPlayingId) {
+                    document.getElementById(currentPlayingId).classList.remove('playing');
+                }
+            };
+            bgMusic.onplaying = function() {
+                 if (currentPlayingId) {
+                    document.getElementById(currentPlayingId).classList.add('playing');
+                }
+            };
+            bgMusic.onended = function() {
+                if (currentPlayingId) {
+                    document.getElementById(currentPlayingId).classList.remove('playing');
+                    currentPlayingId = null;
+                }
+            };
         }
         
         function stopMusic() {
+            if (currentPlayingId) {
+                document.getElementById(currentPlayingId).classList.remove('playing');
+                currentPlayingId = null;
+            }
             bgMusic.pause();
             bgMusic.src = '';
             bgMusic.load();
         }
         
-        function stopAndRestart() {
+        function stopAndRestart(clickedButton = null) {
+            if (clickedButton) {
+                clickedButton.classList.add('button-pop');
+                setTimeout(() => { clickedButton.classList.remove('button-pop'); }, 300);
+            }
+
             stopMusic();
             wishesUnlocked = 0;
             document.querySelectorAll('.wish-card').forEach(card => card.classList.remove('flipped'));
@@ -445,19 +560,29 @@
         }
 
         // --- Core Navigation Function ---
-        function goToScreen(screenId) {
+        function goToScreen(screenId, clickedButton = null) {
             
-            // CONFFETI LOGIC: Show confetti on the first screen only
-            if (screenId === 'greeting-screen') {
-                document.getElementById('confetti-holder').style.display = 'block';
-                // Hide confetti after a few seconds so it looks like a proper burst
+            // 1. Handle Button Pop Animation
+            if (clickedButton) {
+                clickedButton.classList.add('button-pop');
                 setTimeout(() => {
-                    document.getElementById('confetti-holder').style.display = 'none';
-                }, 3000); 
-            } else {
-                document.getElementById('confetti-holder').style.display = 'none';
+                    clickedButton.classList.remove('button-pop');
+                }, 300);
+            }
+            
+            // 2. CONFFETI LOGIC: Trigger the new slow confetti explosion
+            if (screenId === 'greeting-screen') {
+                confettiHolder.style.display = 'block';
+                generateConfetti(); 
+            } else if (confettiHolder.style.display !== 'none') {
+                // Ensure the confetti animation runs for its full 10 seconds before hiding it, 
+                setTimeout(() => {
+                    confettiHolder.style.display = 'none';
+                }, CONFETTI_DURATION_MS); 
             }
 
+
+            // 3. Screen Transition Logic
             // Exit animation
             document.querySelectorAll('.card.active').forEach(card => {
                 card.classList.remove('active');
@@ -482,7 +607,7 @@
             }
         }
 
-        // --- Playlist Carousel Logic (SCREEN 4) (Unchanged) ---
+        // --- Playlist Carousel Logic (SCREEN 4) ---
         function updateCarousel() {
             slides.forEach((slide, index) => {
                 slide.style.transform = `translateX(-${currentSlide * 100}%)`;
@@ -499,7 +624,7 @@
             updateCarousel();
         }
 
-        // --- Cake Cutting Drag/Swipe Logic (SCREEN 5) (Unchanged) ---
+        // --- Cake Cutting Drag/Swipe Logic (SCREEN 5) ---
         function getCoords(event) {
             const rect = cakeContainer.getBoundingClientRect();
             let x, y;
@@ -578,7 +703,7 @@
         document.addEventListener('touchend', endCut);
 
 
-        // --- Wish Card Flip Logic (SCREEN 7) (Unchanged) ---
+        // --- Wish Card Flip Logic (SCREEN 7) ---
         function flipCard(cardElement, wishNumber) {
             if (cardElement.classList.contains('flipped')) {
                 return;
@@ -595,7 +720,7 @@
             }
         }
         
-        // --- Kiss Explosion Function (New) ---
+        // --- Kiss Explosion Function ---
         function sendKisses() {
             const button = document.querySelector('#sealed-letter-screen .green-button');
             const rect = button.getBoundingClientRect();
@@ -652,4 +777,3 @@
     </script>
 </body>
 </html>
-
