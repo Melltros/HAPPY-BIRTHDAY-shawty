@@ -6,13 +6,22 @@
     <title>sreehara Magical Birthday Surprise!</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
     <style>
-        /* --- 1. Global Styles and Enhanced Background --- */
+        /* --- 1. Global Styles and Enhanced Background (FINAL LOCAL IMAGE FIX) --- */
         body {
             font-family: 'Poppins', sans-serif;
             margin: 0;
             padding: 0;
-            /* Use a simple base gradient for the new layered background */
-            background: linear-gradient(to bottom, #fff7f7 0%, #ffe0f0 100%);
+            
+            /* >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> */
+            /* ***EDIT THIS LINE: ENSURE THE FILENAME AND EXTENSION ARE 100% CORRECT*** */
+            background: url('images/my_cute_background.png') no-repeat center center fixed; 
+            background-size: cover; 
+            /* Fallback color in case the image still fails */
+            background-color: #ffe0f0; 
+            /* If your image is a small, repeating pattern, use this line instead: */
+            /* background: url('images/YOUR_BACKGROUND_FILE_NAME.png') repeat; */
+            /* >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> */
+            
             min-height: 100vh;
             display: flex;
             justify-content: center;
@@ -23,7 +32,7 @@
             position: relative; 
         }
 
-        /* --- 1.1 Decorative Background Elements --- */
+        /* --- 1.1 Decorative Background Elements (Original, preserved) --- */
         .decoration-layer {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; overflow: hidden; z-index: 1; 
         }
@@ -36,44 +45,41 @@
         #decor-heart-small { background-image: url('bg_assets/heart_pink_small.png'); width: 25px; height: 25px; top: 50%; left: 10%; }
         #decor-cake { background-image: url('bg_assets/cake_small.png'); width: 50px; height: 50px; top: 5%; left: 2%; }
 
-        /* --- 2. Confetti Animation (Customized for Slow Explosion) --- */
+        /* --- 2. Confetti Animation (Original, preserved) --- */
         .confetti-container {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; overflow: hidden; z-index: 9999;
         }
         .confetti {
-            position: absolute; 
-            width: 10px; 
-            height: 10px; 
-            border-radius: 50%; 
-            opacity: 0; 
-            /* *** SLOWER ANIMATION DURATION: 10 SECONDS *** */
+            position: absolute; width: 10px; height: 10px; border-radius: 50%; opacity: 0; 
             animation: confetti-fall 10s ease-out forwards; 
         }
         
-        /* The falling explosion animation */
         @keyframes confetti-fall {
-            0% { 
-                /* Start at the launch point with full opacity and no rotation */
-                transform: translate(0, 0) rotate(0deg); 
-                opacity: 1; 
-            }
-            100% { 
-                /* End position and rotation are set by JavaScript variables */
-                transform: translate(var(--end-x), var(--end-y)) rotate(var(--rot)); 
-                opacity: 0; 
-            }
+            0% { transform: translate(0, 0) rotate(0deg); opacity: 1; }
+            100% { transform: translate(var(--end-x), var(--end-y)) rotate(var(--rot)); opacity: 0; }
         }
         
-        /* --- 3. Main Container and Card Styling --- */
+        /* --- 3. Main Container and Card Styling (PRESERVED CUTE CARD STYLES) --- */
         .container { width: 95%; max-width: 450px; text-align: center; z-index: 10; }
         .card {
-            background-color: white; padding: 30px 20px; border-radius: 30px; box-shadow: 0 10px 30px rgba(255, 105, 180, 0.3); margin-top: 20px; display: none;
-            /* INTENSE CARD POP-IN */
-            opacity: 0; transform: scale(0.6); transition: opacity 0.3s ease-out, transform 0.4s cubic-bezier(0.2, 0.9, 0.3, 1.4);
+            background-color: white; 
+            padding: 30px 20px; 
+            border-radius: 30px; 
+            /* Soft pink border and enhanced shadow for cuteness */
+            border: 3px solid #ffc0cb; 
+            box-shadow: 
+                0 10px 30px rgba(255, 105, 180, 0.3), 
+                0 0 15px rgba(255, 105, 180, 0.5), 
+                0 0 5px rgba(255, 255, 255, 0.8) inset; 
+            margin-top: 20px; 
+            display: none;
+            opacity: 0; 
+            transform: scale(0.6); 
+            transition: opacity 0.3s ease-out, transform 0.4s cubic-bezier(0.2, 0.9, 0.3, 1.4);
         }
         .card.active { opacity: 1; transform: scale(1); }
 
-        /* --- 4. Typography, Buttons, and Images --- */
+        /* --- 4. Typography, Buttons, and Images (Original, preserved) --- */
         h1, h2 { color: #ff69b4; font-weight: 800; }
         .subtitle { font-size: 1.1em; color: #666; margin-top: 5px; }
         .love-letter-text { font-family: 'Georgia', serif; font-size: 1.05em; line-height: 1.6; text-align: left; padding: 15px; }
@@ -86,78 +92,39 @@
         .pink-button:hover, .green-button:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(255, 105, 180, 0.6); }
         .pink-button:active, .green-button:active { transform: translateY(0); box-shadow: 0 5px 15px rgba(255, 105, 180, 0.5); }
 
-        /* **INCREASED CAT IMAGE SIZE** */
         .decoration-img { max-width: 120px; height: auto; border-radius: 15px; } 
         .cat-image { float: right; margin-left: 10px; }
         .envelope-image { width: 150px; margin: 20px auto; display: block; }
         
-        /* --- NEW STYLES FOR ALBUM ART AND PLAY BUTTONS --- */
+        /* Album Art */
         .album-art-wrapper {
-            position: relative;
-            width: 100%;
-            border-radius: 15px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-            transition: transform 0.2s;
+            position: relative; width: 100%; border-radius: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); transition: transform 0.2s;
         }
-        .album-art-wrapper:hover {
-            transform: scale(1.03); /* Keep the hover effect on the wrapper */
-        }
-        .album-art { 
-            width: 100%; 
-            height: auto; 
-            border-radius: 15px;
-            display: block; 
-        }
+        .album-art-wrapper:hover { transform: scale(1.03); }
+        .album-art { width: 100%; height: auto; border-radius: 15px; display: block; }
         .play-pause-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background-color: rgba(0, 0, 0, 0.4); /* Dark overlay */
-            border-radius: 15px;
-            opacity: 1; /* Initially visible (showing 'play') */
-            transition: opacity 0.3s ease;
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; background-color: rgba(0, 0, 0, 0.4); border-radius: 15px; opacity: 1; transition: opacity 0.3s ease;
         }
-        .play-pause-overlay .icon {
-            width: 50px; /* Size of the icon */
-            height: 50px;
-            filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.8)); /* Glow effect */
-        }
-        /* State when music is playing: hide the overlay */
-        .album-item.playing .play-pause-overlay {
-            opacity: 0; 
-        }
-        .album-item.playing .play-pause-overlay .play-icon {
-            display: none !important;
-        }
-        .album-item:not(.playing) .play-pause-overlay .pause-icon {
-            display: none !important;
-        }
-        /* END NEW STYLES */
+        .play-pause-overlay .icon { width: 50px; height: 50px; filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.8)); }
+        .album-item.playing .play-pause-overlay { opacity: 0; }
+        .album-item.playing .play-pause-overlay .play-icon { display: none !important; }
+        .album-item:not(.playing) .play-pause-overlay .pause-icon { display: none !important; }
 
-        /* **INCREASED CAT SHAKE SPEED** */
+        /* Animations */
         .kitty-shake { animation: gentleShake 0.5s infinite ease-in-out; } 
-
         @keyframes gentleShake {
             0%, 100% { transform: translateX(0) rotate(0); }
             25% { transform: translateX(-3px) rotate(-1deg); }
             75% { transform: translateX(3px) rotate(1deg); }
         }
-
-        /* INTENSE CLICK FEEDBACK */
         .button-pop { animation: intensePop 0.5s ease-out forwards; }
-
         @keyframes intensePop {
             0% { transform: scale(1); }
             50% { transform: scale(1.15); }
             100% { transform: scale(1); }
         }
         
-        /* --- 6. Cake Cutting Styles (Interactive Drag) --- */
+        /* --- 6. Cake Cutting Styles (Original, preserved) --- */
         .cake-container { margin: 20px auto; position: relative; width: 250px; height: 250px; display: flex; justify-content: center; align-items: center; cursor: pointer; }
         .cake-img { width: 100%; height: 100%; position: absolute; top: 0; left: 0; transition: opacity 0.5s; }
         #cake-cut { opacity: 0; }
@@ -165,7 +132,7 @@
         #cut-line { position: absolute; top: 50%; left: 0; width: 100%; height: 3px; background-color: #ff69b4; transform: translateY(-50%) scaleX(0); transform-origin: left; transition: transform 0.5s; z-index: 6; }
         #cut-message { margin-top: 20px; color: #ff69b4; font-weight: 600; font-size: 1.1em; display: none; }
         
-        /* --- 7. Kiss Explosion Animation Styles --- */
+        /* --- 7. Kiss Explosion (Original, preserved) --- */
         .kiss-explosion-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; overflow: hidden; z-index: 9998; }
         .kiss-emoji { position: absolute; font-size: 2em; opacity: 0; animation: float-up 2s ease-out forwards; }
         @keyframes float-up {
@@ -173,7 +140,7 @@
             100% { transform: translate(var(--x-end), var(--y-end)) scale(var(--scale)); opacity: 0; }
         }
 
-        /* --- 8. Other Styles --- */
+        /* --- 8. Other Styles (Original, preserved) --- */
         .carousel-wrapper { display: flex; align-items: center; justify-content: space-between; margin-top: 20px; }
         .carousel { display: flex; overflow: hidden; width: 80%; margin: 0 auto; border-radius: 15px; position: relative; }
         .carousel-item { min-width: 100%; transition: transform 0.4s ease-in-out; cursor: pointer; padding: 5px; }
@@ -198,9 +165,7 @@
         <div id="decor-cake"></div>
     </div>
 
-    <div id="confetti-holder" class="confetti-container" style="display: none;">
-        </div>
-
+    <div id="confetti-holder" class="confetti-container" style="display: none;"></div>
     <div id="kiss-explosion-container" class="kiss-explosion-container"></div>
     
     <audio id="bg-music" loop>
@@ -208,6 +173,9 @@
         Your browser does not support the audio element.
     </audio>
 
+    <audio id="startup-sound" src="audio/startup_sound.mp3" preload="auto"></audio>
+    
+    <audio id="card-flip-sound" src="audio/chime.mp3" preload="auto"></audio> 
     <div class="container">
 
         <div id="greeting-screen" class="card">
@@ -221,9 +189,7 @@
         <div id="letter-envelope-screen" class="card">
             <h2 style="font-size: 1.8em;">A Birthday Love Letter <span style="font-size: 1.2em;">💌</span></h2>
             <p class="subtitle">From my heart to the birthday queen</p>
-            
             <img class="envelope-image" src="images/envelope.png" alt="Pink Envelope">
-            
             <p style="margin-top: 30px;">Click to open your birthday surprise</p>
             <button class="pink-button" onclick="goToScreen('letter-content-screen', this)">Birthday Special Delivery 🎁</button>
         </div>
@@ -231,13 +197,11 @@
         <div id="letter-content-screen" class="card">
             <img class="decoration-img cat-image" src="images/kitty_party.png" alt="Kitty with party hat"> 
             <h2 style="color: #ff69b4; text-align: left; margin-bottom: 20px;">To My Birthday monkey</h2>
-            
             <div class="love-letter-text">
                 <p style="color: #ff69b4; font-style: italic;">My dearest sreehara,</p>
                 <p>Today marks another year of your incredible existence, and I couldn't be more grateful to celebrate it with you. You bring so much joy, laughter, and love into this world - and into my life. You deserve all the magic, all the dreams, and all the love this world has to offer.</p>
                 <p style="text-align: right; color: #ff69b4; margin-top: 20px; font-weight: 600;">Forever yours 💕</p>
             </div>
-            
             <button class="pink-button" onclick="goToScreen('playlist-screen', this)">Continue It ✨</button>
         </div>
 
@@ -250,7 +214,7 @@
                 <div class="carousel">
                     <div id="slide1" class="carousel-item album-item" onclick="playSong('audio/song1.mp3', 'slide1')">
                         <div class="album-art-wrapper">
-                            <img class="album-art" src="images/album_art_1.png" alt="Dil Cheeze Tujhe Dedi"> 
+                            <img class="album-art" src="images/album_art_1.png" alt="Song 1"> 
                             <div class="play-pause-overlay">
                                 <img class="icon play-icon" src="images/play_logo.png" alt="Play">
                                 <img class="icon pause-icon" src="images/pause_logo.png" alt="Pause">
@@ -261,7 +225,7 @@
                     </div>
                     <div id="slide2" class="carousel-item album-item" onclick="playSong('audio/song2.mp3', 'slide2')">
                         <div class="album-art-wrapper">
-                            <img class="album-art" src="images/album_art_2.png" alt="Dil Ka Jo Haal Hai"> 
+                            <img class="album-art" src="images/album_art_2.png" alt="Song 2"> 
                             <div class="play-pause-overlay">
                                 <img class="icon play-icon" src="images/play_logo.png" alt="Play">
                                 <img class="icon pause-icon" src="images/pause_logo.png" alt="Pause">
@@ -272,7 +236,7 @@
                     </div>
                     <div id="slide3" class="carousel-item album-item" onclick="playSong('audio/song3.mp3', 'slide3')">
                         <div class="album-art-wrapper">
-                            <img class="album-art" src="images/album_art_3.png" alt="If the world was ending..."> 
+                            <img class="album-art" src="images/album_art_3.png" alt="Song 3"> 
                             <div class="play-pause-overlay">
                                 <img class="icon play-icon" src="images/play_logo.png" alt="Play">
                                 <img class="icon pause-icon" src="images/pause_logo.png" alt="Pause">
@@ -284,28 +248,21 @@
                 </div>
                 <button class="carousel-arrow" onclick="changeSlide(1)">&#10095;</button>
             </div>
-            
             <button class="pink-button" onclick="goToScreen('cake-screen', this)">Continue to Birthday Surprises ✨</button>
         </div>
 
         <div id="cake-screen" class="card">
             <h2 style="font-size: 1.8em;">It's Cake Time! <span style="font-size: 1.2em;">🍰</span></h2>
             <p class="subtitle">Make your birthday wish come true!</p>
-
             <h3 style="color: #333;">Cut your birthday cake, birthday girl!</h3>
             <p style="font-size: 0.9em; margin-bottom: 30px;">**Drag your finger or mouse across the cake to cut it with a sparkly line!**</p>
-
             <div id="cake-container" class="cake-container">
                 <img id="cake-uncut" class="cake-img" src="images/cake_uncut.png" alt="Uncut Birthday Cake">
                 <img id="cake-cut" class="cake-img" src="images/cake_cut.png" alt="Cut Birthday Cake">
-                
                 <div id="drag-line"></div>
-                
                 <div id="cut-line"></div>
             </div>
-
             <p id="cut-message" style="display: none;">Perfect Cut! 🎉 May this year bring you everything your heart desires! ✨</p>
-            
             <button id="cake-continue-btn" class="pink-button" onclick="goToScreen('wish-make-screen', this)" style="display: none;">Continue to Wish! ✨</button>
         </div>
 
@@ -314,14 +271,12 @@
             <h2 style="font-size: 2em;">Time to Make a Wish! ✨</h2>
             <p class="subtitle">Close your eyes and make your birthday wish! ☀️</p>
             <p style="margin-top: 20px;">Think of something wonderful for your new year!</p>
-            
             <button class="pink-button" onclick="goToScreen('wishes-reveal-screen', this)">I've Made My Wish! 🤞</button>
         </div>
 
         <div id="wishes-reveal-screen" class="card">
             <h2 style="font-size: 1.8em;">Birthday Wishes Cards <span style="font-size: 1.2em;">🎁</span></h2>
             <p class="subtitle">Click each card to reveal a birthday message!</p>
-
             <div class="wishes-grid">
                 <div id="wish-1" class="wish-card" onclick="flipCard(this, 1)">
                     <div class="card-inner">
@@ -348,7 +303,6 @@
                     </div>
                 </div>
             </div>
-            
             <p id="unlock-message">0 of 3 birthday wishes unlocked! Keep going ✨</p>
             <button id="wishes-continue-btn" class="pink-button" onclick="goToScreen('final-letter-screen', this)" style="display: none;">Open Final Birthday Letter 💌</button>
         </div>
@@ -356,24 +310,19 @@
         <div id="final-letter-screen" class="card">
             <h2 style="font-size: 1.8em;">Final Birthday Letter <span style="font-size: 1.2em;">💖</span></h2>
             <p class="subtitle">A special message sealed with love</p>
-            
             <img class="decoration-img cat-image" src="images/kitty_heart.png" alt="Kitty holding heart"> 
             <h3 style="color: #ff69b4; text-align: left; margin-top: 10px;">Final Birthday Love Letter</h3>
-            
             <div class="love-letter-text">
                 <p style="color: #ff69b4; font-style: italic;">My dearest sreehara,</p>
                 <p>bae i always wondered that what it will feel like when i find love but now i know it is the most beautiful feeling coz i have found you. you make my every day special i love your vlogs you sent me every time i just love hearing your voice tho we have not been together for long but it feels like i have known you from years i just love youu soo much...</p>
             </div>
-            
             <button class="pink-button" onclick="goToScreen('sealed-letter-screen', this)">Seal The Letter 👑</button>
         </div>
 
         <div id="sealed-letter-screen" class="card">
             <h2 style="font-size: 1.8em;">Birthday Letter Sealed with Love <span style="font-size: 1.2em;">💖</span></h2>
             <p class="subtitle">Happy Birthday, My Everything 🥳</p>
-            
             <h1 style="font-size: 2em; margin: 20px 0;">Forever Yours, Happy Birthday!</h1>
-            
             <button class="pink-button" onclick="stopAndRestart(this)">Experience Birthday Magic Again ✨</button>
             <button class="green-button" style="margin-top: 15px;" onclick="sendKisses()">Send Birthday Kisses 💋</button>
         </div>
@@ -387,8 +336,8 @@
         let wishesUnlocked = 0;
         const wishesCount = 3;
         const bgMusic = document.getElementById('bg-music');
-        let currentPlayingId = null; // Track which album is currently playing (NEW)
-        
+        let currentPlayingId = null;
+
         // Cake Cutting Variables
         const cakeContainer = document.getElementById('cake-container');
         const dragLine = document.getElementById('drag-line');
@@ -396,383 +345,246 @@
         let isDragging = false;
         let cutCompleted = false;
         let startX = 0;
-        startY = 0;
+        let startY = 0;
 
         // Confetti Variables 
         const confettiHolder = document.getElementById('confetti-holder');
         const NUM_PARTICLES = 150; 
         const CONFETTI_COLORS = ['#ff69b4', '#6ee6a9', '#fff5e6', '#fce4ec', '#ffc0cb'];
-        const CONFETTI_DURATION_MS = 10000; // 10 seconds (Matches CSS animation: 10s)
+        const CONFETTI_DURATION_MS = 10000; 
 
         // Kiss Explosion Variables
         const kissExplosionContainer = document.getElementById('kiss-explosion-container');
         const kissEmojis = ['💋', '💖', '💕', '😘', '❤️'];
+        
+        // ADDED: Reference to the new card flip audio element
+        const cardFlipSound = document.getElementById('card-flip-sound');
 
-        // --- Confetti Generation Function ---
+        // --- Confetti Generation ---
         function generateConfetti() {
-            // Clear existing confetti before a new burst
             confettiHolder.innerHTML = ''; 
-
             for (let i = 0; i < NUM_PARTICLES; i++) {
                 const confetti = document.createElement('div');
                 confetti.classList.add('confetti');
-
-                // Randomly select a color
                 const color = CONFETTI_COLORS[Math.floor(Math.random() * CONFETTI_COLORS.length)];
+                if (Math.random() > 0.5) { confetti.style.backgroundColor = color; } 
+                else { confetti.style.borderRadius = '50%'; confetti.style.backgroundColor = color; }
                 
-                // Randomly choose shape (square or circle)
-                if (Math.random() > 0.5) {
-                    confetti.style.backgroundColor = color;
-                } else {
-                    confetti.style.borderRadius = '50%';
-                    confetti.style.backgroundColor = color; 
-                }
-                
-                // *** WIDESPREAD POP STARTING POSITION ***
-                // Start X: Random position across the entire width
                 const startX = Math.random() * window.innerWidth;
-                // Start Y: Randomly positioned in the top 1/3rd of the screen height
                 const startY = Math.random() * (window.innerHeight / 3); 
-                
                 confetti.style.left = `${startX}px`;
                 confetti.style.top = `${startY}px`;
                 
-                // Random end position (falling outwards and downwards)
                 const range = 500; 
-                // End X is offset from the startX to make it fall slightly sideways
                 const endXOffset = (Math.random() * range * 2 - range); 
-                const endY = window.innerHeight * Math.random() + 100; // Drop far down
+                const endY = window.innerHeight * Math.random() + 100;
                 const rotation = Math.random() * 360 * 15; 
                 
-                // Set CSS variables for the animation (using endXOffset + original startX for total horizontal movement)
                 confetti.style.setProperty('--end-x', `${endXOffset}px`);
                 confetti.style.setProperty('--end-y', `${endY}px`);
                 confetti.style.setProperty('--rot', `${rotation}deg`);
-                
-                // Randomize the animation delay slightly (max 0.5s)
                 confetti.style.animationDelay = `${Math.random() * 0.5}s`;
                 
                 confettiHolder.appendChild(confetti);
-
-                // Remove the element after the animation is complete (10s animation + 0.5s max delay)
-                setTimeout(() => {
-                    confetti.remove();
-                }, CONFETTI_DURATION_MS + 500); 
+                setTimeout(() => { confetti.remove(); }, CONFETTI_DURATION_MS + 500); 
             }
         }
 
-
-        // --- Music Playback Function (MODIFIED) ---
+        // --- Music Playback ---
         function playSong(audioSrc, albumId) {
             const albumElement = document.getElementById(albumId);
-            
-            // 1. Check if the SAME song is already playing or is paused
             if (currentPlayingId === albumId) {
                 if (!bgMusic.paused) {
-                    // It is currently playing -> PAUSE it
                     bgMusic.pause();
                     albumElement.classList.remove('playing');
                     return;
                 } else {
-                    // It is currently paused -> RESUME it
-                    bgMusic.play().catch(error => {
-                        console.log("Audio playback failed:", error);
-                    });
+                    bgMusic.play();
                     albumElement.classList.add('playing');
                     return;
                 }
             }
-            
-            // 2. Stop and reset the previously playing song/icon
-            if (currentPlayingId) {
-                document.getElementById(currentPlayingId).classList.remove('playing');
-            }
-
-            // 3. Set the new song
+            if (currentPlayingId) { document.getElementById(currentPlayingId).classList.remove('playing'); }
             bgMusic.pause();
             bgMusic.src = audioSrc;
             bgMusic.load();
-            
-            // 4. Update state to playing
             currentPlayingId = albumId;
             albumElement.classList.add('playing');
+            bgMusic.play().catch(e => console.log("Playback failed:", e));
 
-            bgMusic.play().catch(error => {
-                console.log("Audio playback failed:", error);
-                if (bgMusic.paused) {
-                    alert("Music is ready, but your browser might need another tap/click to start the song! Try tapping the album cover again.");
-                    // If playback fails, revert the playing state
-                    albumElement.classList.remove('playing');
-                    currentPlayingId = null;
-                }
-            });
-
-            // Set up handlers for external pause/end events
-            bgMusic.onpause = function() {
-                if (currentPlayingId) {
-                    document.getElementById(currentPlayingId).classList.remove('playing');
-                }
-            };
-            bgMusic.onplaying = function() {
-                 if (currentPlayingId) {
-                    document.getElementById(currentPlayingId).classList.add('playing');
-                }
-            };
-            bgMusic.onended = function() {
-                if (currentPlayingId) {
-                    document.getElementById(currentPlayingId).classList.remove('playing');
-                    currentPlayingId = null;
-                }
-            };
+            bgMusic.onpause = function() { if (currentPlayingId) document.getElementById(currentPlayingId).classList.remove('playing'); };
+            bgMusic.onplaying = function() { if (currentPlayingId) document.getElementById(currentPlayingId).classList.add('playing'); };
+            bgMusic.onended = function() { if (currentPlayingId) document.getElementById(currentPlayingId).classList.remove('playing'); currentPlayingId = null; };
         }
         
         function stopMusic() {
-            if (currentPlayingId) {
-                document.getElementById(currentPlayingId).classList.remove('playing');
-                currentPlayingId = null;
-            }
-            bgMusic.pause();
-            bgMusic.src = '';
-            bgMusic.load();
+            if (currentPlayingId) { document.getElementById(currentPlayingId).classList.remove('playing'); currentPlayingId = null; }
+            bgMusic.pause(); bgMusic.src = ''; bgMusic.load();
         }
         
         function stopAndRestart(clickedButton = null) {
-            if (clickedButton) {
-                clickedButton.classList.add('button-pop');
-                setTimeout(() => { clickedButton.classList.remove('button-pop'); }, 300);
-            }
-
+            if (clickedButton) { clickedButton.classList.add('button-pop'); setTimeout(() => clickedButton.classList.remove('button-pop'), 300); }
             stopMusic();
             wishesUnlocked = 0;
             document.querySelectorAll('.wish-card').forEach(card => card.classList.remove('flipped'));
             document.getElementById('wishes-continue-btn').style.display = 'none';
             document.getElementById('unlock-message').textContent = `0 of ${wishesCount} birthday wishes unlocked! Keep going ✨`;
             
-            // Reset cake state
             cutCompleted = false;
             cutLine.style.transform = 'translateY(-50%) scaleX(0)'; 
             document.getElementById('cake-uncut').style.opacity = '1';
             document.getElementById('cake-cut').style.opacity = '0';
             document.getElementById('cut-message').style.display = 'none';
             document.getElementById('cake-continue-btn').style.display = 'none';
-
             goToScreen('greeting-screen');
         }
 
-        // --- Core Navigation Function ---
+        // --- Core Navigation ---
         function goToScreen(screenId, clickedButton = null) {
-            
-            // 1. Handle Button Pop Animation
             if (clickedButton) {
                 clickedButton.classList.add('button-pop');
-                setTimeout(() => {
-                    clickedButton.classList.remove('button-pop');
-                }, 300);
+                setTimeout(() => { clickedButton.classList.remove('button-pop'); }, 300);
             }
-            
-            // 2. CONFFETI LOGIC: Trigger the new slow confetti explosion
             if (screenId === 'greeting-screen') {
                 confettiHolder.style.display = 'block';
                 generateConfetti(); 
             } else if (confettiHolder.style.display !== 'none') {
-                // Ensure the confetti animation runs for its full 10 seconds before hiding it, 
-                setTimeout(() => {
-                    confettiHolder.style.display = 'none';
-                }, CONFETTI_DURATION_MS); 
+                setTimeout(() => { confettiHolder.style.display = 'none'; }, CONFETTI_DURATION_MS); 
             }
 
-
-            // 3. Screen Transition Logic
-            // Exit animation
-            document.querySelectorAll('.card.active').forEach(card => {
-                card.classList.remove('active');
-            });
-
-            // Hide all screens
-            document.querySelectorAll('.card').forEach(card => {
-                card.style.display = 'none';
-            });
+            document.querySelectorAll('.card.active').forEach(card => card.classList.remove('active'));
+            document.querySelectorAll('.card').forEach(card => card.style.display = 'none');
             
-            // Show the target screen and enter animation
             const nextScreen = document.getElementById(screenId);
             nextScreen.style.display = 'block';
+            setTimeout(() => { nextScreen.classList.add('active'); }, 10); 
             
-            setTimeout(() => {
-                nextScreen.classList.add('active');
-            }, 10); 
-            
-            if (screenId === 'playlist-screen') {
-                currentSlide = 0;
-                updateCarousel();
-            }
+            if (screenId === 'playlist-screen') { currentSlide = 0; updateCarousel(); }
         }
 
-        // --- Playlist Carousel Logic (SCREEN 4) ---
+        // --- Playlist Carousel ---
         function updateCarousel() {
-            slides.forEach((slide, index) => {
-                slide.style.transform = `translateX(-${currentSlide * 100}%)`;
-            });
+            slides.forEach((slide, index) => { slide.style.transform = `translateX(-${currentSlide * 100}%)`; });
         }
-
         function changeSlide(direction) {
             currentSlide += direction;
-            if (currentSlide < 0) {
-                currentSlide = slides.length - 1;
-            } else if (currentSlide >= slides.length) {
-                currentSlide = 0;
-            }
+            if (currentSlide < 0) { currentSlide = slides.length - 1; } 
+            else if (currentSlide >= slides.length) { currentSlide = 0; }
             updateCarousel();
         }
 
-        // --- Cake Cutting Drag/Swipe Logic (SCREEN 5) ---
-        function getCoords(event) {
-            const rect = cakeContainer.getBoundingClientRect();
-            let x, y;
-            
-            if (event.touches) {
-                x = event.touches[0].clientX - rect.left;
-                y = event.touches[0].clientY - rect.top;
-            } 
-            else {
-                x = event.clientX - rect.left;
-                y = event.clientY - rect.top;
-            }
-            return { x, y };
+        // --- Cake Cutting ---
+        function getClientCoordinates(e) {
+            if (e.touches && e.touches.length > 0) return { x: e.touches[0].clientX, y: e.touches[0].clientY };
+            return { x: e.clientX, y: e.clientY };
         }
-
-        function startCut(event) {
+        function startCut(e) {
             if (cutCompleted) return;
             isDragging = true;
-            dragLine.style.opacity = 1;
-            const coords = getCoords(event);
-            startX = coords.x;
-            startY = coords.y;
-            
-            dragLine.style.left = `${startX}px`;
-            dragLine.style.top = `${startY}px`;
-            dragLine.style.width = '0px';
+            const coords = getClientCoordinates(e);
+            const rect = cakeContainer.getBoundingClientRect();
+            startX = coords.x - rect.left; startY = coords.y - rect.top;
+            dragLine.style.width = '0px'; dragLine.style.left = `${startX}px`; dragLine.style.top = `${startY}px`;
+            dragLine.style.transform = 'rotate(0deg)'; dragLine.style.opacity = '1';
         }
-
-        function moveCut(event) {
+        function moveCut(e) {
             if (!isDragging || cutCompleted) return;
-            event.preventDefault();
-
-            const coords = getCoords(event);
-            const currentX = coords.x;
-            const currentY = coords.y;
-
-            const deltaX = currentX - startX;
-            const deltaY = currentY - startY;
-            const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+            e.preventDefault(); 
+            const coords = getClientCoordinates(e);
+            const rect = cakeContainer.getBoundingClientRect();
+            const deltaX = (coords.x - rect.left) - startX;
+            const deltaY = (coords.y - rect.top) - startY;
+            const length = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
             const angle = Math.atan2(deltaY, deltaX) * (180 / Math.PI);
-
-            dragLine.style.width = `${distance}px`;
+            dragLine.style.width = `${length}px`;
             dragLine.style.transform = `rotate(${angle}deg)`;
         }
-
-        function endCut(event) {
+        function endCut(e) {
             if (!isDragging || cutCompleted) return;
             isDragging = false;
-            dragLine.style.opacity = 0;
-
-            const coords = getCoords(event.changedTouches ? event.changedTouches[0] : event);
-            const endX = coords.x;
-            
-            const cakeWidth = cakeContainer.clientWidth;
-            const cutLength = Math.abs(endX - startX); 
-
-            if (cutLength > (cakeWidth * 0.7)) {
-                cutCompleted = true;
-                
-                cutLine.style.transform = 'translateY(-50%) scaleX(1)';
-                
+            dragLine.style.opacity = '0';
+            if (parseFloat(dragLine.style.width) > 100) performCutAnimation();
+        }
+        function performCutAnimation() {
+            cutCompleted = true;
+            cutLine.style.transform = 'translateY(-50%) scaleX(1)';
+            setTimeout(() => {
                 document.getElementById('cake-uncut').style.opacity = '0';
                 document.getElementById('cake-cut').style.opacity = '1';
-                
                 document.getElementById('cut-message').style.display = 'block';
-                document.getElementById('cake-continue-btn').style.display = 'block';
-            }
+                document.getElementById('cake-continue-btn').style.display = 'inline-block';
+                generateConfetti();
+            }, 500);
         }
-
         cakeContainer.addEventListener('mousedown', startCut);
-        cakeContainer.addEventListener('mousemove', moveCut);
-        document.addEventListener('mouseup', endCut); 
-        
-        cakeContainer.addEventListener('touchstart', startCut);
-        cakeContainer.addEventListener('touchmove', moveCut);
-        document.addEventListener('touchend', endCut);
+        cakeContainer.addEventListener('touchstart', startCut, {passive: false});
+        window.addEventListener('mousemove', moveCut);
+        window.addEventListener('touchmove', moveCut, {passive: false});
+        window.addEventListener('mouseup', endCut);
+        window.addEventListener('touchend', endCut);
 
-
-        // --- Wish Card Flip Logic (SCREEN 7) ---
-        function flipCard(cardElement, wishNumber) {
-            if (cardElement.classList.contains('flipped')) {
-                return;
+        // --- Wish Card Flipping (MODIFIED TO ADD SOUND) ---
+        function flipCard(cardElement, id) {
+            if (cardElement.classList.contains('flipped')) return;
+            
+            // Play the chime sound
+            if (cardFlipSound) {
+                cardFlipSound.currentTime = 0; // Reset sound to the start
+                cardFlipSound.play().catch(e => console.log("Card flip sound error:", e));
             }
-
+            
             cardElement.classList.add('flipped');
             wishesUnlocked++;
-            
-            document.getElementById('unlock-message').textContent = `${wishesUnlocked} of ${wishesCount} birthday wishes unlocked! Keep going ✨`;
-
+            const msg = document.getElementById('unlock-message');
+            msg.textContent = `${wishesUnlocked} of ${wishesCount} birthday wishes unlocked! Keep going ✨`;
             if (wishesUnlocked === wishesCount) {
-                document.getElementById('unlock-message').textContent = "Amazing! All birthday wishes revealed! ✨";
-                document.getElementById('wishes-continue-btn').style.display = 'block';
+                msg.textContent = "All wishes unlocked! You are so loved! 💖";
+                document.getElementById('wishes-continue-btn').style.display = 'inline-block';
+                sendKisses(); 
             }
         }
-        
-        // --- Kiss Explosion Function ---
-        function sendKisses() {
-            const button = document.querySelector('#sealed-letter-screen .green-button');
-            const rect = button.getBoundingClientRect();
-            
-            // Calculate center position of the button
-            const centerX = rect.left + rect.width / 2;
-            const centerY = rect.top + rect.height / 2;
 
-            // Clear previous kisses
-            kissExplosionContainer.innerHTML = '';
-            
-            // Create 30 kisses/hearts
+        // --- Kiss Explosion ---
+        function sendKisses() {
             for (let i = 0; i < 30; i++) {
                 const kiss = document.createElement('div');
                 kiss.classList.add('kiss-emoji');
-                
-                // Randomly select emoji
                 kiss.textContent = kissEmojis[Math.floor(Math.random() * kissEmojis.length)];
-                
-                // Random size (small to big)
-                const size = Math.random() * 0.8 + 1.2; // 1.2em to 2.0em
-                kiss.style.fontSize = `${size}em`;
-                
-                // Starting position centered on the button
-                kiss.style.left = `${centerX}px`;
-                kiss.style.top = `${centerY}px`;
-                
-                // Random end position (floating up and out)
-                const endX = (Math.random() - 0.5) * window.innerWidth / 2; // Horizontal spread
-                const endY = -window.innerHeight * (Math.random() * 0.5 + 0.3); // Float upwards 30% to 80% of screen height
-                
-                // Set CSS variables for animation
-                kiss.style.setProperty('--x-end', `${endX}px`);
-                kiss.style.setProperty('--y-end', `${endY}px`);
-                kiss.style.setProperty('--scale', Math.random() * 0.5 + 0.5); // End scale 0.5 to 1.0
-                
-                // Random animation delay
-                kiss.style.animationDelay = `${Math.random() * 0.5}s`;
-                
+                kiss.style.left = `${Math.random() * 100}%`;
+                kiss.style.bottom = '-50px'; 
+                kiss.style.setProperty('--x-end', `${(Math.random() - 0.5) * 200}px`);
+                kiss.style.setProperty('--y-end', `${-(window.innerHeight + 100)}px`);
+                kiss.style.setProperty('--scale', 0.5 + Math.random() * 1.5);
+                kiss.style.animationDuration = `${1.5 + Math.random() * 2}s`;
                 kissExplosionContainer.appendChild(kiss);
-
-                // Remove the element after animation ends (2.5 seconds total)
-                setTimeout(() => {
-                    kiss.remove();
-                }, 2500);
+                setTimeout(() => { kiss.remove(); }, 4000);
             }
         }
 
-
-        // --- Initialize the Website ---
+        // --- INITIALIZATION & STARTUP SOUND ---
         window.onload = function() {
-            goToScreen('greeting-screen'); 
+            // 1. Show the greeting screen
+            document.getElementById('greeting-screen').style.display = 'block';
+            setTimeout(() => {
+                document.getElementById('greeting-screen').classList.add('active');
+                confettiHolder.style.display = 'block';
+                generateConfetti();
+            }, 100);
+
+            // 2. PLAY SOUND ON LOAD LOGIC
+            // Ensure you have a file named 'startup_sound.mp3' in your audio folder
+            var loadSound = document.getElementById('startup-sound');
+            if (loadSound) {
+                 // Try to play sound immediately (may be blocked by browser policy)
+                loadSound.play().catch(e => {
+                    console.log("Startup sound blocked. Waiting for user interaction.");
+                    // Play sound on the first interaction
+                    document.body.addEventListener('click', function handler() {
+                        loadSound.play().catch(err => console.error("Error playing startup sound:", err));
+                        document.body.removeEventListener('click', handler);
+                    }, { once: true });
+                });
+            }
         };
     </script>
 </body>
