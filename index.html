@@ -124,14 +124,34 @@
             100% { transform: scale(1); }
         }
         
-        /* --- 6. Cake Cutting Styles (Original, preserved) --- */
+        /* --- 6. Cake Cutting Styles (MODIFIED FOR PARTICLE EFFECT) --- */
         .cake-container { margin: 20px auto; position: relative; width: 250px; height: 250px; display: flex; justify-content: center; align-items: center; cursor: pointer; }
         .cake-img { width: 100%; height: 100%; position: absolute; top: 0; left: 0; transition: opacity 0.5s; }
         #cake-cut { opacity: 0; }
-        #drag-line { position: absolute; height: 5px; background: linear-gradient(90deg, transparent, #ffc0cb, #ff69b4, #ffc0cb, transparent); box-shadow: 0 0 10px #ff69b4, 0 0 20px #ffc0cb; border-radius: 5px; transform-origin: left; transition: opacity 0.05s; opacity: 0; pointer-events: none; z-index: 5; }
+
+        /* The original drag-line and cut-line are no longer needed for the particle effect
+           but we keep cut-line for the final animation, and remove drag-line styles. */
         #cut-line { position: absolute; top: 50%; left: 0; width: 100%; height: 3px; background-color: #ff69b4; transform: translateY(-50%) scaleX(0); transform-origin: left; transition: transform 0.5s; z-index: 6; }
         #cut-message { margin-top: 20px; color: #ff69b4; font-weight: 600; font-size: 1.1em; display: none; }
         
+        /* New styles for the magical particles */
+        .cake-particle {
+            position: absolute;
+            width: 8px; /* Small size */
+            height: 8px;
+            background-color: #ffc0cb; /* Pink color */
+            border-radius: 50%;
+            box-shadow: 0 0 5px #ff69b4; /* Glow */
+            pointer-events: none; /* Don't block clicks/touches on the cake */
+            animation: particle-fade 0.5s ease-out forwards; /* Fade out quickly */
+            z-index: 10;
+        }
+
+        @keyframes particle-fade {
+            0% { opacity: 1; transform: scale(1); }
+            100% { opacity: 0; transform: scale(0.5); }
+        }
+
         /* --- 7. Kiss Explosion (Original, preserved) --- */
         .kiss-explosion-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; overflow: hidden; z-index: 9998; }
         .kiss-emoji { position: absolute; font-size: 2em; opacity: 0; animation: float-up 2s ease-out forwards; }
@@ -255,11 +275,11 @@
             <h2 style="font-size: 1.8em;">It's Cake Time! <span style="font-size: 1.2em;">🍰</span></h2>
             <p class="subtitle">Make your birthday wish come true!</p>
             <h3 style="color: #333;">Cut your birthday cake, birthday girl!</h3>
-            <p style="font-size: 0.9em; margin-bottom: 30px;">**Drag your finger or mouse across the cake to cut it with a sparkly line!**</p>
+            <p style="font-size: 0.9em; margin-bottom: 30px;">**Drag your finger or mouse across the cake to cut it with a magical trail!**</p>
             <div id="cake-container" class="cake-container">
                 <img id="cake-uncut" class="cake-img" src="images/cake_uncut.png" alt="Uncut Birthday Cake">
                 <img id="cake-cut" class="cake-img" src="images/cake_cut.png" alt="Cut Birthday Cake">
-                <div id="drag-line"></div>
+                <div id="drag-line" style="display: none;"></div> 
                 <div id="cut-line"></div>
             </div>
             <p id="cut-message" style="display: none;">Perfect Cut! 🎉 May this year bring you everything your heart desires! ✨</p>
@@ -340,12 +360,16 @@
 
         // Cake Cutting Variables
         const cakeContainer = document.getElementById('cake-container');
-        const dragLine = document.getElementById('drag-line');
+        // Removed dragLine reference as it's no longer functional for the line
         const cutLine = document.getElementById('cut-line');
         let isDragging = false;
         let cutCompleted = false;
-        let startX = 0;
-        let startY = 0;
+        
+        // New variables for tracking the cut path
+        let pathLength = 0;
+        let lastX = 0;
+        let lastY = 0;
+        const MIN_CUT_LENGTH = 100; // Minimum path length in pixels to count as a cut
 
         // Confetti Variables 
         const confettiHolder = document.getElementById('confetti-holder');
@@ -431,6 +455,7 @@
             document.getElementById('unlock-message').textContent = `0 of ${wishesCount} birthday wishes unlocked! Keep going ✨`;
             
             cutCompleted = false;
+            pathLength = 0; // Reset path length
             cutLine.style.transform = 'translateY(-50%) scaleX(0)'; 
             document.getElementById('cake-uncut').style.opacity = '1';
             document.getElementById('cake-cut').style.opacity = '0';
@@ -473,40 +498,90 @@
             updateCarousel();
         }
 
-        // --- Cake Cutting ---
+        // --- Cake Cutting (MODIFIED FUNCTIONS) ---
         function getClientCoordinates(e) {
             if (e.touches && e.touches.length > 0) return { x: e.touches[0].clientX, y: e.touches[0].clientY };
             return { x: e.clientX, y: e.clientY };
         }
+
+        // Function to create a particle at a given position relative to the cake container
+        function createParticle(x, y) {
+            const particle = document.createElement('div');
+            particle.classList.add('cake-particle');
+            
+            // Randomize size and color slightly for a natural look
+            const size = 5 + Math.random() * 5; // 5px to 10px
+            const colorIndex = Math.floor(Math.random() * CONFETTI_COLORS.length);
+            particle.style.width = `${size}px`;
+            particle.style.height = `${size}px`;
+            particle.style.backgroundColor = CONFETTI_COLORS[colorIndex];
+
+            // Position relative to the cake container
+            particle.style.left = `${x - size / 2}px`;
+            particle.style.top = `${y - size / 2}px`;
+            
+            // Add slight initial animation transform (optional)
+            particle.style.transform = `scale(0) rotate(${Math.random() * 360}deg)`;
+
+            cakeContainer.appendChild(particle);
+
+            // Remove particle after animation ends
+            setTimeout(() => { particle.remove(); }, 500);
+        }
+
         function startCut(e) {
             if (cutCompleted) return;
             isDragging = true;
+            pathLength = 0; // Reset path length
             const coords = getClientCoordinates(e);
             const rect = cakeContainer.getBoundingClientRect();
-            startX = coords.x - rect.left; startY = coords.y - rect.top;
-            dragLine.style.width = '0px'; dragLine.style.left = `${startX}px`; dragLine.style.top = `${startY}px`;
-            dragLine.style.transform = 'rotate(0deg)'; dragLine.style.opacity = '1';
+            
+            // Set initial position relative to container for tracking path length
+            lastX = coords.x - rect.left;
+            lastY = coords.y - rect.top;
+            
+            // Create the first particle
+            createParticle(lastX, lastY);
         }
+        
         function moveCut(e) {
             if (!isDragging || cutCompleted) return;
             e.preventDefault(); 
+
             const coords = getClientCoordinates(e);
             const rect = cakeContainer.getBoundingClientRect();
-            const deltaX = (coords.x - rect.left) - startX;
-            const deltaY = (coords.y - rect.top) - startY;
-            const length = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
-            const angle = Math.atan2(deltaY, deltaX) * (180 / Math.PI);
-            dragLine.style.width = `${length}px`;
-            dragLine.style.transform = `rotate(${angle}deg)`;
+            const currentX = coords.x - rect.left;
+            const currentY = coords.y - rect.top;
+
+            // Calculate distance moved since last point
+            const deltaX = currentX - lastX;
+            const deltaY = currentY - lastY;
+            const segmentLength = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+
+            // Add to total path length
+            pathLength += segmentLength;
+
+            // Create a particle at the new position
+            createParticle(currentX, currentY);
+
+            // Update last position
+            lastX = currentX;
+            lastY = currentY;
         }
+
         function endCut(e) {
             if (!isDragging || cutCompleted) return;
             isDragging = false;
-            dragLine.style.opacity = '0';
-            if (parseFloat(dragLine.style.width) > 100) performCutAnimation();
+            
+            // Check if the total path length is sufficient to count as a cut
+            if (pathLength >= MIN_CUT_LENGTH) {
+                performCutAnimation();
+            }
         }
+
         function performCutAnimation() {
             cutCompleted = true;
+            // The final cut-line still animates to show the result
             cutLine.style.transform = 'translateY(-50%) scaleX(1)';
             setTimeout(() => {
                 document.getElementById('cake-uncut').style.opacity = '0';
